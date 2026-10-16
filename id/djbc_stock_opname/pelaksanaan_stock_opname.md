@@ -80,7 +80,7 @@ Setelah dokumen surat tugas terdaftar, lakukan inisiasi lembar kerja perhitungan
 4. Masukkan hasil perhitungan fisik ke kolom **Real Qty**:
    * Jika produk memiliki pelacakan lot/serial, cantumkan nomor **Lot/Serial Number**.
    * Kolom **Inventory Qty (Qty Diff)** akan dihitung otomatis oleh sistem:
-     $$\text{Qty Diff} = \text{Real Qty} - \text{Theoritical Qty}$$
+     `Qty Diff = Real Qty - Theoretical Qty` (Selisih = Qty Fisik − Qty Buku)
 
 > [!TIP]
 > Nilai selisih positif menunjukkan **selisih lebih** (fisik lebih banyak dari buku), sedangkan nilai negatif menunjukkan **selisih kurang** (fisik lebih sedikit dari buku).

@@ -80,7 +80,7 @@ Once the assignment document is registered, initiate the inventory count workshe
 4. Enter the counted amounts into the **Real Qty** column:
    * For lot/serial tracked items, specify the **Lot/Serial Number**.
    * The **Inventory Qty (Qty Diff)** column calculates automatically:
-     $$\text{Qty Diff} = \text{Real Qty} - \text{Theoritical Qty}$$
+     `Qty Diff = Real Qty - Theoretical Qty`
 
 > [!TIP]
 > A positive variance indicates a surplus (physical exceeds system records), while a negative variance indicates a shortage (physical is less than system records).

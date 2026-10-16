@@ -181,20 +181,20 @@ Sistem menyediakan field **Perhitungan (`kode_perhitungan`)** pada item barang:
   * **Dasar Bea Masuk (DPP BM)**: Menggunakan **Harga Penyerahan (Harga Jual)** barang jadi.
   * **Pos Tarif / HS Code**: Menggunakan HS Code **Barang Jadi**.
   * **Rumus**:
-    * $\text{Bea Masuk} = \text{Harga Penyerahan} \times \text{Tarif BM Barang Jadi}\%$
-    * $\text{PPN (11%)} = \text{Harga Penyerahan} \times 11\%$
-    * $\text{PPh Pasal 22} = (\text{Harga Penyerahan} + \text{Bea Masuk}) \times \text{Tarif PPh}\%$
-  * **Total Bayar**: $\text{Nilai BM} + \text{Nilai PPN} + \text{Nilai PPh}$.
+    * `Bea Masuk = Harga Penyerahan × Tarif BM Barang Jadi%`
+    * `PPN (11%) = Harga Penyerahan × 11%`
+    * `PPh Pasal 22 = (Harga Penyerahan + Bea Masuk) × Tarif PPh%`
+  * **Total Bayar**: `Nilai BM + Nilai PPN + Nilai PPh`.
 
 * **Opsi 0: Harga Pemasukan (Kode `0`)**
   * **Prinsip**: Tarif dan nilai pungutan merefer langsung dari rincian bahan baku yang digunakan pada **Tab Bahan Baku (`bahan_baku_ids`)**.
   * Apabila barang jadi menggunakan kombinasi bahan baku impor (ex-BC 2.3) dan bahan baku lokal (ex-BC 4.0), maka pada tab **Barang Tarif** akan muncul **4 jenis pungutan**:
     1. **3 Jenis Pungutan milik Bahan Baku Impor (ex-BC 2.3)**:
-       * **a. BM (Bea Masuk)**: $\sum (\text{CIF Rupiah BB Impor} \times \text{Tarif BM BB Impor}\%)$
-       * **b. PPH (PPh Impor)**: $(\sum \text{CIF Rupiah BB Impor} + \text{Nilai BM}) \times \text{Tarif PPh}\%$ (Importir API: 2,5%, Non-API: 7,5%)
-       * **c. PPN (PPN Impor)**: $(\sum \text{CIF Rupiah BB Impor} + \text{Nilai BM}) \times 11\%$
+       * **a. BM (Bea Masuk)**: `Σ (CIF Rupiah BB Impor × Tarif BM BB Impor%)`
+       * **b. PPH (PPh Impor)**: `(Σ CIF Rupiah BB Impor + Nilai BM) × Tarif PPh%` *(Importir API: 2,5%, Non-API: 7,5%)*
+       * **c. PPN (PPN Impor)**: `(Σ CIF Rupiah BB Impor + Nilai BM) × 11%`
     2. **1 Jenis Pungutan milik Bahan Baku Lokal (ex-BC 4.0)**:
-       * **d. PPN Lokal (`PPNLOKAL`)**: $\sum (\text{Harga BB Lokal}) \times 11\%$
+       * **d. PPN Lokal (`PPNLOKAL`)**: `Σ (Harga BB Lokal) × 11%`
        * *(Bahan baku lokal tidak dikenakan BM dan PPh Pasal 22)*.
   * **Di Tabel Pungutan Dokumen Header**: Sistem otomatis merangkum keempat pungutan tersebut sebagai pungutan yang wajib dibayar (Fasilitas `1` DIBAYAR).
 
@@ -202,7 +202,7 @@ Sistem menyediakan field **Perhitungan (`kode_perhitungan`)** pada item barang:
 * Apabila barang jadi diolah murni dari bahan baku lokal (asal BC 4.0 / `kode_asal_bahan_baku = 1`):
   * **Bea Masuk = 0% (Rp 0)**
   * **PPh Pasal 22 Impor = 0% (Rp 0)**
-  * **Hanya dikenakan PPN Lokal 11%**: $\text{PPN} = \text{Harga Penyerahan} \times 11\%$.
+  * **Hanya dikenakan PPN Lokal 11%**: `PPN = Harga Penyerahan × 11%`.
 
 #### 3. Ketentuan PPh Pasal 22 Impor & Alasan Respon API CEISA Tidak Ada PPH
 * **Mengapa Tarikan API CEISA (`ceisa.tarif`) Hanya Ada BM dan PPN?**
@@ -210,7 +210,7 @@ Sistem menyediakan field **Perhitungan (`kode_perhitungan`)** pada item barang:
   * PPh Pasal 22 Impor diatur oleh Direktorat Jenderal Pajak / Kementerian Keuangan berdasarkan **subjek pajak / kepemilikan izin API**, bukan tarif tetap per HS Code. Oleh sebab itu, server API CEISA **tidak pernah mengirimkan baris PPH** pada endpoint `tarif-hs`.
 * **Dasar Hukum Tarif 2,5%:**
   * Sesuai **PMK No. 34/PMK.010/2017 jo PMK No. 41/PMK.010/2022**:
-    * Importir dengan **API (Angka Pengenal Importir / NIB)**: Tarif **2,5%** dari Dasar Pengenaan Pajak ($\text{DPP PPh} = \text{Harga Penyerahan/CIF} + \text{Nilai BM}$).
+    * Importir dengan **API (Angka Pengenal Importir / NIB)**: Tarif **2,5%** dari Dasar Pengenaan Pajak (`DPP PPh = Harga Penyerahan/CIF + Nilai BM`).
     * Importir **Non-API**: Tarif **7,5%**.
     * Pemegang **SKB (Surat Keterangan Bebas PPh 22)**: Tarif **0%** (Fasilitas Bebas).
   * Di Kawasan Berikat (TPB), seluruh pengusaha TPB berstatus badan usaha ber-API. Sistem BZone otomatis menerapkan default **2,5%** pada barang impor/olahan impor, namun kolom tarif tetap fleksibel untuk diedit jika perusahaan non-API atau memiliki SKB.

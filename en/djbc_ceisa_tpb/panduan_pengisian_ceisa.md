@@ -181,20 +181,20 @@ The system provides a **Calculation (`kode_perhitungan`)** field per goods line:
   * **Duty Assessment Base (DPP BM)**: Based on the **Delivery Price / Selling Price** of the finished good.
   * **Tariff Heading / HS Code**: Uses the HS Code of the **Finished Good**.
   * **Formulas**:
-    * $\text{Import Duty} = \text{Delivery Price} \times \text{Finished Good Duty Rate}\%$
-    * $\text{VAT (11%)} = \text{Delivery Price} \times 11\%$
-    * $\text{Article 22 Tax} = (\text{Delivery Price} + \text{Import Duty}) \times \text{PPh Rate}\%$
-  * **Total Payable**: $\text{Duty Value} + \text{VAT Value} + \text{Income Tax Value}$.
+    * `Import Duty = Delivery Price × Finished Good Duty Rate%`
+    * `VAT (11%) = Delivery Price × 11%`
+    * `Article 22 Tax = (Delivery Price + Import Duty) × PPh Rate%`
+  * **Total Payable**: `Duty Value + VAT Value + Income Tax Value`.
 
 * **Option 0: Inward Price / Harga Pemasukan (Code `0`)**
   * **Principle**: Tariff rates and levy amounts reference directly from the raw materials used in the **Raw Materials Tab (`bahan_baku_ids`)**.
   * When a finished good uses a mix of imported raw materials (ex-BC 2.3) and domestic raw materials (ex-BC 4.0), the **Goods Tariff** tab displays **4 distinct tax/duty rows**:
     1. **3 Levy Types from Imported Raw Materials (ex-BC 2.3)**:
-       * **a. BM (Import Duty)**: $\sum (\text{CIF IDR of Import RM} \times \text{Duty Rate of Import RM}\%)$
-       * **b. PPH (Import Income Tax)**: $(\sum \text{CIF IDR of Import RM} + \text{BM}) \times \text{PPh Rate}\%$ (API: 2.5%, Non-API: 7.5%)
-       * **c. PPN (Import VAT)**: $(\sum \text{CIF IDR of Import RM} + \text{BM}) \times 11\%$
+       * **a. BM (Import Duty)**: `Σ (CIF IDR of Import RM × Duty Rate of Import RM%)`
+       * **b. PPH (Import Income Tax)**: `(Σ CIF IDR of Import RM + BM) × PPh Rate%` *(API: 2.5%, Non-API: 7.5%)*
+       * **c. PPN (Import VAT)**: `(Σ CIF IDR of Import RM + BM) × 11%`
     2. **1 Levy Type from Domestic Raw Materials (ex-BC 4.0)**:
-       * **d. Local VAT (`PPNLOKAL`)**: $\sum (\text{Price of Domestic RM}) \times 11\%$
+       * **d. Local VAT (`PPNLOKAL`)**: `Σ (Price of Domestic RM) × 11%`
        * *(Domestic raw materials are exempt from Import Duty and Article 22 Tax)*.
   * **In Document Header Levies Table**: The system automatically summarizes all 4 levies as payable duties (Facility `1` DIBAYAR).
 
@@ -202,7 +202,7 @@ The system provides a **Calculation (`kode_perhitungan`)** field per goods line:
 * If finished goods are made purely from domestic/local raw materials (ex-BC 4.0 / `kode_asal_bahan_baku = 1`):
   * **Import Duty = 0% (Rp 0)**
   * **Article 22 Income Tax = 0% (Rp 0)**
-  * **Only assessed with Local VAT (11%)**: $\text{VAT} = \text{Delivery Price} \times 11\%$.
+  * **Only assessed with Local VAT (11%)**: `VAT = Delivery Price × 11%`.
 
 #### 3. Article 22 Income Tax Provisions & Why CEISA API Returns No PPH
 * **Why Does CEISA API (`ceisa.tarif`) Only Return BM and PPN?**
@@ -210,7 +210,7 @@ The system provides a **Calculation (`kode_perhitungan`)** field per goods line:
   * Article 22 Import Income Tax is governed by the Directorate General of Taxes / Ministry of Finance based on the **taxpayer's entity qualification (importer API license status)**, not purely per HS Code. Hence, the CEISA API **never returns PPH tariff rows** under the `tarif-hs` endpoint.
 * **Statutory 2.5% Rate Legal Basis:**
   * Pursuant to **PMK No. 34/PMK.010/2017 jo PMK No. 41/PMK.010/2022**:
-    * Importers holding an **API (Importer Identification Number / NIB)**: Statutory rate of **2.5%** on the Tax Base ($\text{PPh DPP} = \text{Delivery Price/CIF} + \text{Duty Value}$).
+    * Importers holding an **API (Importer Identification Number / NIB)**: Statutory rate of **2.5%** on the Tax Base (`PPh DPP = Delivery Price/CIF + Duty Value`).
     * Importers **Without API**: Statutory rate of **7.5%**.
     * Holders of **SKB (Article 22 Tax Exemption Certificate)**: Rate **0%** (Exempt facility).
   * In Bonded Zones (TPB), all operating enterprises hold valid API credentials. BZone automatically sets the standard **2.5%** default on imported goods or finished goods from imported inputs, while keeping the field editable for non-API or SKB scenarios.
