@@ -12,6 +12,11 @@
       "code": "en",
       "name": "English",
       "flag": "🇬🇧"
+    },
+    {
+      "code": "c_zh",
+      "name": "简体中文",
+      "flag": "🇨🇳"
     }
   ],
   "default_version": "19.0",

@@ -1,0 +1,184 @@
+[
+  {
+    "key": "intro",
+    "title": "简介",
+    "items": [
+      {
+        "path": "",
+        "title": "系统概述与架构"
+      }
+    ]
+  },
+  {
+    "key": "master_data",
+    "title": "系统主数据",
+    "items": [
+      {
+        "path": "master_data/produk",
+        "title": "产品主数据与物流路线"
+      },
+      {
+        "path": "master_data/mitra_bisnis",
+        "title": "业务合作伙伴（供应商与客户）"
+      }
+    ]
+  },
+  {
+    "key": "operasional",
+    "title": "标准业务流程",
+    "items": [
+      {
+        "path": "operasional/penjualan_sales",
+        "title": "销售流程（销售与按单生产 MTO）"
+      },
+      {
+        "path": "operasional/pengadaan_purchase",
+        "title": "采购流程"
+      },
+      {
+        "path": "operasional/pergudangan_inventory",
+        "title": "收货与发货（库存）"
+      },
+      {
+        "path": "operasional/manufaktur_mrp",
+        "title": "生产与物料清单（MRP）"
+      },
+      {
+        "path": "operasional/keuangan_accounting",
+        "title": "发票与付款（财务）"
+      }
+    ]
+  },
+  {
+    "key": "djbc_app",
+    "title": "BZone 核心 (djbc_app)",
+    "items": [
+      {
+        "path": "djbc_app/konfigurasi_dasar",
+        "title": "基础配置与主文档"
+      }
+    ]
+  },
+  {
+    "key": "djbc_kb",
+    "title": "保税区 (djbc_kb)",
+    "items": [
+      {
+        "path": "djbc_kb/klasifikasi_barang",
+        "title": "IT 库存商品分类"
+      },
+      {
+        "path": "djbc_kb/pemasukan_pengeluaran",
+        "title": "入库与出库流程"
+      },
+      {
+        "path": "djbc_kb/laporan_mutasi_it_inventory",
+        "title": "7 份必报 DJBC 库存变动报表"
+      }
+    ]
+  },
+  {
+    "key": "djbc_kite",
+    "title": "KITE 便利化 (djbc_kite)",
+    "items": [
+      {
+        "path": "djbc_kite/panduan_fasilitas_kite",
+        "title": "KITE 便利化指南"
+      }
+    ]
+  },
+  {
+    "key": "djbc_kek",
+    "title": "经济特区 (djbc_kek)",
+    "items": [
+      {
+        "path": "djbc_kek/panduan_fasilitas_kek",
+        "title": "KEK 便利化指南"
+      }
+    ]
+  },
+  {
+    "key": "djbc_stock_opname",
+    "title": "库存盘点 (djbc_stock_opname)",
+    "items": [
+      {
+        "path": "djbc_stock_opname/pelaksanaan_stock_opname",
+        "title": "库存盘点执行"
+      }
+    ]
+  },
+  {
+    "key": "erpi_custom_rate",
+    "title": "海关汇率 (erpi_custom_rate)",
+    "items": [
+      {
+        "path": "erpi_custom_rate/manajemen_kurs_pabean",
+        "title": "海关汇率管理"
+      }
+    ]
+  },
+  {
+    "key": "djbc_insw",
+    "title": "INSW 连接器 (djbc_insw)",
+    "items": [
+      {
+        "path": "djbc_insw/konektor_layanan_insw",
+        "title": "INSW 服务集成"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_core",
+    "title": "CEISA 核心 (djbc_ceisa_core)",
+    "items": [
+      {
+        "path": "djbc_ceisa_core/integrasi_ceisa_core",
+        "title": "CEISA 4.0 基础集成"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_tpb",
+    "title": "CEISA 保税区 (djbc_ceisa_tpb)",
+    "items": [
+      {
+        "path": "djbc_ceisa_tpb/pengelolaan_dokumen_tpb",
+        "title": "TPB 单证管理"
+      },
+      {
+        "path": "djbc_ceisa_tpb/panduan_pengisian_ceisa",
+        "title": "TPB 单证字段填写指南（BC 2.3、2.5 等）"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_impor",
+    "title": "CEISA 进口 (djbc_ceisa_impor)",
+    "items": [
+      {
+        "path": "djbc_ceisa_impor/dokumentasi_impor",
+        "title": "BC 2.0 进口文档"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_expor",
+    "title": "CEISA 出口 (djbc_ceisa_expor)",
+    "items": [
+      {
+        "path": "djbc_ceisa_expor/dokumentasi_expor",
+        "title": "BC 3.0 与 3.3 出口文档"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_ftz",
+    "title": "CEISA 自由贸易区 (djbc_ceisa_ftz)",
+    "items": [
+      {
+        "path": "djbc_ceisa_ftz/dokumentasi_ftz",
+        "title": "PPFTZ 文档（KPBPB）"
+      }
+    ]
+  }
+]
