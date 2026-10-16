@@ -1,0 +1,184 @@
+[
+  {
+    "key": "intro",
+    "title": "Introduction",
+    "items": [
+      {
+        "path": "",
+        "title": "System Overview & Architecture"
+      }
+    ]
+  },
+  {
+    "key": "master_data",
+    "title": "System Master Data",
+    "items": [
+      {
+        "path": "master_data/produk",
+        "title": "Product Master & Logistics Routes"
+      },
+      {
+        "path": "master_data/mitra_bisnis",
+        "title": "Business Partners (Vendor & Customer)"
+      }
+    ]
+  },
+  {
+    "key": "operasional",
+    "title": "Standard Operational Flow",
+    "items": [
+      {
+        "path": "operasional/penjualan_sales",
+        "title": "Sales Cycle (Sales & MTO)"
+      },
+      {
+        "path": "operasional/pengadaan_purchase",
+        "title": "Procurement Cycle (Purchase)"
+      },
+      {
+        "path": "operasional/pergudangan_inventory",
+        "title": "Goods Receipt & Delivery (Inventory)"
+      },
+      {
+        "path": "operasional/manufaktur_mrp",
+        "title": "Manufacturing & BoM (MRP)"
+      },
+      {
+        "path": "operasional/keuangan_accounting",
+        "title": "Invoices & Payments (Accounting)"
+      }
+    ]
+  },
+  {
+    "key": "djbc_app",
+    "title": "BZone Core (djbc_app)",
+    "items": [
+      {
+        "path": "djbc_app/konfigurasi_dasar",
+        "title": "Basic Configurations & Masters"
+      }
+    ]
+  },
+  {
+    "key": "djbc_kb",
+    "title": "Bonded Zone (djbc_kb)",
+    "items": [
+      {
+        "path": "djbc_kb/klasifikasi_barang",
+        "title": "IT Inventory Classification"
+      },
+      {
+        "path": "djbc_kb/pemasukan_pengeluaran",
+        "title": "Inbound & Outbound Flows"
+      },
+      {
+        "path": "djbc_kb/laporan_mutasi_it_inventory",
+        "title": "7 Mandatory Mutation Reports"
+      }
+    ]
+  },
+  {
+    "key": "djbc_kite",
+    "title": "KITE Facility (djbc_kite)",
+    "items": [
+      {
+        "path": "djbc_kite/panduan_fasilitas_kite",
+        "title": "KITE Facility Guide"
+      }
+    ]
+  },
+  {
+    "key": "djbc_kek",
+    "title": "Special Economic Zone (djbc_kek)",
+    "items": [
+      {
+        "path": "djbc_kek/panduan_fasilitas_kek",
+        "title": "KEK Facility Guide"
+      }
+    ]
+  },
+  {
+    "key": "djbc_stock_opname",
+    "title": "Stock Opname (djbc_stock_opname)",
+    "items": [
+      {
+        "path": "djbc_stock_opname/pelaksanaan_stock_opname",
+        "title": "Stock Opname Execution"
+      }
+    ]
+  },
+  {
+    "key": "erpi_custom_rate",
+    "title": "Customs Rate (erpi_custom_rate)",
+    "items": [
+      {
+        "path": "erpi_custom_rate/manajemen_kurs_pabean",
+        "title": "Customs Rate Management"
+      }
+    ]
+  },
+  {
+    "key": "djbc_insw",
+    "title": "INSW Connector (djbc_insw)",
+    "items": [
+      {
+        "path": "djbc_insw/konektor_layanan_insw",
+        "title": "INSW Service Integration"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_core",
+    "title": "CEISA Core (djbc_ceisa_core)",
+    "items": [
+      {
+        "path": "djbc_ceisa_core/integrasi_ceisa_core",
+        "title": "CEISA 4.0 Foundation Integration"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_tpb",
+    "title": "CEISA TPB (djbc_ceisa_tpb)",
+    "items": [
+      {
+        "path": "djbc_ceisa_tpb/pengelolaan_dokumen_tpb",
+        "title": "TPB Document Management"
+      },
+      {
+        "path": "djbc_ceisa_tpb/panduan_pengisian_ceisa",
+        "title": "TPB Document Field Guide (BC 2.3, 2.5, etc.)"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_impor",
+    "title": "CEISA Import (djbc_ceisa_impor)",
+    "items": [
+      {
+        "path": "djbc_ceisa_impor/dokumentasi_impor",
+        "title": "BC 2.0 Import Documentation"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_expor",
+    "title": "CEISA Export (djbc_ceisa_expor)",
+    "items": [
+      {
+        "path": "djbc_ceisa_expor/dokumentasi_expor",
+        "title": "BC 3.0 & 3.3 Export Documentation"
+      }
+    ]
+  },
+  {
+    "key": "djbc_ceisa_ftz",
+    "title": "CEISA FTZ (djbc_ceisa_ftz)",
+    "items": [
+      {
+        "path": "djbc_ceisa_ftz/dokumentasi_ftz",
+        "title": "PPFTZ Documentation (KPBPB)"
+      }
+    ]
+  }
+]

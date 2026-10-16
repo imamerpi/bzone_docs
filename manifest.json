@@ -1,0 +1,30 @@
+{
+  "name": "BZone Documentation",
+  "version": "19.0.1.0",
+  "default_language": "id",
+  "languages": [
+    {
+      "code": "id",
+      "name": "Bahasa Indonesia",
+      "flag": "🇮🇩"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "flag": "🇬🇧"
+    }
+  ],
+  "default_version": "19.0",
+  "versions": [
+    {
+      "code": "19.0",
+      "name": "v19.0 (Odoo 19)",
+      "branch": "19.0"
+    },
+    {
+      "code": "main",
+      "name": "Main (Development)",
+      "branch": "main"
+    }
+  ]
+}
