@@ -52,6 +52,12 @@ Tab ini adalah identitas utama dokumen pabean Anda.
   | **BC 2.7** | Pemindahan barang antar TPB. |
   | **BC 2.6.1 / 2.6.2** | Pengeluaran / pengembalian subkontrak. |
 
+> [!NOTE]
+> **Khusus Dokumen BC 2.6.2 (Pemasukan Kembali Hasil Subkontrak):**
+> Pada tab Header terdapat bagian **Dokumen Referensi / Dokumen Asal**:
+> * **Dokumen BC 2.6.1 Asal**: Pilih dokumen pengeluaran BC 2.6.1 awal. Sistem otomatis menarik **Nomor Aju Asal**, serta **Nomor Daftar Asal** dan **Tanggal Daftar Asal** dari tab riwayat respon CEISA.
+> * Untuk panduan langkah demi langkah lengkap pengisian subkontrak, silakan baca [Panduan Subkontrak BC 2.6.1 & BC 2.6.2](subkontrak_bc261_bc262.md).
+
 ### Langkah 2: Tab Entitas
 
 Entitas adalah pihak-pihak yang terlibat dalam transaksi. Sistem akan mengurutkan prioritas otomatis, tetapi pastikan data berikut benar:
@@ -75,7 +81,8 @@ Tab ini memuat dokumen pendukung transaksi. **Urutan seri sangat penting** karen
   ![Urutan Dokumen Pelengkap](/assets/images/ceisa_tpb_dokumen_pelengkap.png)
 
 > [!IMPORTANT]
-> Jika Invoice dan B/L/AWB tidak berada di Seri 1 dan Seri 2, dokumen akan ditolak otomatis oleh sistem Bea Cukai.
+> * Jika Invoice dan B/L/AWB tidak berada di Seri 1 dan Seri 2, dokumen akan ditolak otomatis oleh sistem Bea Cukai.
+> * **Penomoran Seri Dokumen Pelengkap Otomatis:** BZone otomatis memberikan nomor seri urut berurutan (`seri_dokumen`: 1, 2, 3...) pada seluruh baris dokumen pelengkap. Untuk dokumen subkontrak BC 2.6.1 & BC 2.6.2, pastikan **Surat Izin Subkontrak (Kode Dokumen 911)** dicantumkan.
 
 ### Langkah 4: Tab Pengangkut
 
@@ -220,6 +227,12 @@ Sistem menyediakan field **Perhitungan (`kode_perhitungan`)** pada item barang:
   * Sistem BZone memetakan baris tarif yang sudah ada (`BM`, `PPH`, `PPN`) dan melakukan pembaruan langsung di baris yang sama (**`COMMAND.UPDATE` / `(1, id, vals)`**).
   * Sistem otomatis mendeteksi dan menghapus baris duplikat (**`COMMAND.DELETE` / `(2, id, 0)`**).
   * Jika HS Code dikosongkan, baris tarif dihapus secara bersih sehingga tidak ada record ganda/ndobel di tampilan antarmuka pengguna.
+
+### 3.5 Ketentuan Bahan Baku BC 2.6.2 (Seri Ijin Subkontrak)
+Pada dokumen pengembalian subkontrak (**BC 2.6.2**), server CEISA 4.0 memvalidasi keterkaitan bahan baku dengan dokumen izin subkontrak:
+* **Anti-Reject Seri Ijin = 0:** CEISA akan menolak dengan error `Seri Ijin Bahan Baku [0] tidak ditemukan pada Dokumen Fasilitas/Ijin` bila kolom seri izin kosong atau 0.
+* **Auto-Fill Seri Ijin:** Saat Anda memilih Surat Izin Subkontrak (kode `911`) di tab Dokumen Pelengkap, sistem BZone otomatis mengisi field `seriIjin` pada baris bahan baku sesuai nomor seri dokumen izin tersebut.
+* Detail selengkapnya tersedia pada [Panduan Subkontrak BC 2.6.1 & BC 2.6.2](subkontrak_bc261_bc262.md).
 
 ### 3.4 Ketentuan Pungutan pada Pemindahan Antar TPB (BC 2.7)
 Berbeda dengan BC 2.5, dokumen **BC 2.7** adalah pemindahan barang antar Tempat Penimbunan Berikat (Kawasan Berikat ke Kawasan Berikat lainnya):

@@ -148,6 +148,10 @@
       {
         "path": "djbc_ceisa_tpb/panduan_pengisian_ceisa",
         "title": "Panduan Pengisian Field TPB (BC 2.3, 2.5, dll)"
+      },
+      {
+        "path": "djbc_ceisa_tpb/subkontrak_bc261_bc262",
+        "title": "Subkontrak BC 2.6.1 & BC 2.6.2"
       }
     ]
   },
