@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+portal/
+run.bat
+run.ps1
+run.sh
+server.py
