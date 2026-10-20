@@ -29,21 +29,27 @@ Model `ceisa.export.document` memiliki compute field `is_re_ekspor`:
 * Bernilai `False` jika memilih **Ekspor Biasa (Kode 1)** atau jenis ekspor non-pemeriksaan lainnya.
 
 ### B. Kontrol Tampilan Form (UI)
-* **Field Header `tanggal_periksa` (Tanggal Pemeriksaan):**
+* **Field Header `tanggal_periksa` (Tanggal Pemeriksaan) & `kode_kantor_periksa` (Kantor Pemeriksaan):**
   * Disembunyikan dan **tidak wajib** jika `is_re_ekspor = False`.
   * Hanya muncul dan **wajib** diisi jika `is_re_ekspor = True`.
+* **Field Header `kode_lokasi` (Lokasi Penimbunan/Pemuatan F.30):**
+  * Tetap **wajib** untuk semua BC 3.0 (mandatori dari skema CEISA 4.0), namun **tidak memicu PKB** karena hanya mencatat kategori lokasi barang (misal `2` = Gudang Eksportir, `4` = TPS, `6` = TPB).
 * **Tab Kesiapan Barang (PKB):**
-  * Otomatis tersembunyi jika dokumen adalah Ekspor Biasa.
+  * Otomatis tersembunyi jika dokumen adalah Ekspor Biasa. Seluruh field detail PKB (seperti `lokasi_siap_periksa`, PIC, telepon, waktu periksa) tidak dapat diinput dan tidak dikirim.
   * Jika user sempat mengisi baris kesiapan lalu mengubah jenis ekspor ke Ekspor Biasa, sistem otomatis mengosongkan baris tersebut via onchange.
 
 ### C. Serializer Payload API CEISA (`_prepare_ceisa_export_data`)
 Saat menyusun JSON untuk endpoint `POST /openapi/document`:
 ```python
-'tanggalPeriksa': (self.tanggal_periksa.strftime('%Y-%m-%d') if self.tanggal_periksa else '') if self.is_re_ekspor else '',
-'kesiapanBarang': self.get_kesiapan_barang(),  # Mengembalikan [] jika not is_re_ekspor
+# Field tanggalPeriksa di-takeout sepenuhnya dari payload jika bukan Re-Ekspor / tidak diisi
+if self.is_re_ekspor and self.tanggal_periksa:
+    data['tanggalPeriksa'] = self.tanggal_periksa.strftime('%Y-%m-%d')
+
+# kesiapanBarang mengembalikan [] jika not is_re_ekspor
+data['kesiapanBarang'] = self.get_kesiapan_barang()
 ```
 Dengan format di atas:
-* **Ekspor Biasa:** `tanggalPeriksa` terkirim sebagai string kosong `""` dan `kesiapanBarang` kosong `[]`, sehingga di portal CEISA dokumen diproses normal sebagai ekspor umum.
+* **Ekspor Biasa:** `tanggalPeriksa` **sama sekali TIDAK disertakan** (di-takeout dari payload JSON) dan `kesiapanBarang` kosong `[]`, sehingga di portal CEISA dokumen diproses normal sebagai ekspor umum tanpa memicu antrean PKB.
 * **Re-Ekspor:** `tanggalPeriksa` dan rincian `kesiapanBarang` (PIC, nomor telpon, lokasi siap periksa, kontainer, tanggal PKB, waktu siap periksa) terkirim lengkap sesuai skema JSON CEISA 4.0.
 
 ---
