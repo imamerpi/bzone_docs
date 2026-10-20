@@ -61,6 +61,8 @@ Buka menu **DJBC CEISA > Ekspor > Ekspor Documents** lalu klik **Create**.
 * **Kode Asuransi** — `LN` (Luar Negeri) atau `DN` (Dalam Negeri).
 * **Flag Curah** & **Flag Migas** — Pilih `1` (Ya) atau `2` (Tidak).
 * **FOB, Freight, Asuransi, CIF, NDPBM** — Nilai transaksi ekspor.
+* **Jenis Pengangkutan (`kode_jenis_pengangkutan`)** — Pilih metode pengangkutan (F.21) dari referensi `ceisa.ref.pengangkut` (misal `1 - SATU SARANA ANGKUT`).
+* **Tanggal Pemeriksaan (`tanggal_periksa`)** — Hanya muncul dan wajib jika Jenis Ekspor adalah **Re-Ekspor**. Pada Ekspor Biasa, field ini otomatis disembunyikan.
 
 | Field | BC 3.0 | BC 3.3 |
 |---|---|---|
@@ -97,7 +99,7 @@ Gunakan kode referensi CEISA untuk setiap dokumen pelengkap (Invoice `380`, B/L 
 ### Langkah 4: Tab Kemasan, Pengangkut, Kontainer
 
 * **Kemasan** — Isi jumlah dan satuan (CTN, PLT, PK, dll.).
-* **Pengangkut** — Pilih moda dan nama sarana angkut. Pada BC 3.3, isi juga `kode_cara_angkut_plb` (cara pengangkutan ke PLB).
+* **Pengangkut** — Pilih moda Cara Pengangkutan (`kode_cara_angkut` — F.17) dan nama sarana angkut. Pada BC 3.3, isi juga `kode_cara_angkut_plb` (cara pengangkutan ke PLB).
 * **Kontainer** — Nomor kontainer 11 digit dan ukuran. Field header `jumlah_kontainer` wajib diisi (isi `0` jika tanpa kontainer).
 
   ![Pengangkut Ekspor](/assets/images/ceisa_expor_pengangkut.png)
@@ -105,7 +107,7 @@ Gunakan kode referensi CEISA untuk setiap dokumen pelengkap (Invoice `380`, B/L 
 ### Langkah 5: Tab Bank Devisa & Kesiapan Barang (PKB)
 
 * **Bank Devisa** — Isi data bank yang menerima devisa hasil ekspor.
-* **Kesiapan Barang (PKB)** — Tab ini hanya muncul dan wajib diisi jika Jenis Ekspor yang dipilih adalah **Re-Ekspor** (kode referensi 5 / Re-Ekspor lainnya). Untuk **Ekspor Biasa**, tab ini otomatis tersembunyi dan tidak dibutuhkan.
+* **Kesiapan Barang (PKB)** — Tab ini hanya muncul dan wajib diisi jika Jenis Ekspor yang dipilih adalah **Re-Ekspor** (kode referensi 5 / Re-Ekspor lainnya). Untuk **Ekspor Biasa**, tab ini otomatis tersembunyi dan tidak dikirim ke CEISA agar tidak memicu status PKB di portal CEISA. Panduan detail regulasi & teknis dapat dibaca di [Ketentuan Ekspor Biasa, PKB & Pengangkutan](ketentuan_ekspor_biasa_dan_pkb.md).
 
   ![Bank Devisa dan Kesiapan Ekspor](/assets/images/ceisa_expor_bankdevisa.png)
 
