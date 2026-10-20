@@ -10,7 +10,7 @@ Untuk membuat data master produk baru pada sistem:
 
 1. Buka modul **Inventory** atau **Sales** / **Purchase**.
 
-![Tampilan Menu Utama Odoo](/assets/images/menu_utama_odoo.png)
+![Tampilan Menu Utama Odoo](/assets/images/main_menu.png)
 *Gambar 1.1: Menu Utama Odoo 19.*
 
 2. Masuk ke menu **Products → Products**.

@@ -31,7 +31,7 @@ assets/images/
 
 | Subfolder Target | File Gambar |
 | :--- | :--- |
-| **`common/`** | `icon.png`<br>`menu_utama_odoo.png`<br>`dashboard_overview.png`<br>`placeholder_screenshot.svg`<br>`placeholder_header.png`<br>`placeholder_entitas.png`<br>`placeholder_dokumen_pelengkap.png`<br>`placeholder_pengangkut.png`<br>`placeholder_kemasan.png`<br>`placeholder_keuangan.png`<br>`placeholder_barang.png` |
+| **`common/`** | `icon.png`<br>`main_menu.png`<br>`dashboard_overview.png`<br>`placeholder_screenshot.svg`<br>`placeholder_header.png`<br>`placeholder_entitas.png`<br>`placeholder_dokumen_pelengkap.png`<br>`placeholder_pengangkut.png`<br>`placeholder_kemasan.png`<br>`placeholder_keuangan.png`<br>`placeholder_barang.png` |
 | **`master_data/`** | `master_customer_form.png`<br>`master_vendor_form.png`<br>`master_produk_general.png`<br>`master_produk_routes.png`<br>`master_produk_djbc.png`<br>`barang_raw_material.png`<br>`barang_wip.png` |
 | **`djbc_core/`** | `djbc_document_type.png`<br>`djbc_uom_mapping.png` |
 | **`ceisa_expor/`** | `ceisa_expor_header.png`<br>`ceisa_expor_entitas.png`<br>`ceisa_expor_dokumen_pelengkap.png`<br>`ceisa_expor_pengangkut.png`<br>`ceisa_expor_bankdevisa.png`<br>`ceisa_expor_barang.png` |
@@ -55,7 +55,7 @@ cd /home/addons/bzone_docs/assets/images
 mkdir -p common master_data djbc_core ceisa_expor ceisa_tpb ceisa_impor ceisa_ftz kawasan_berikat operasional/sales operasional/purchase operasional/mrp operasional/accounting
 
 # 2. Pindahkan file kategori Common
-mv icon.png menu_utama_odoo.png dashboard_overview.png placeholder_* common/ 2>/dev/null || true
+mv icon.png main_menu.png dashboard_overview.png placeholder_* common/ 2>/dev/null || true
 
 # 3. Pindahkan file kategori Master Data
 mv master_customer_form.png master_vendor_form.png master_produk_*.png barang_raw_material.png barang_wip.png master_data/ 2>/dev/null || true
