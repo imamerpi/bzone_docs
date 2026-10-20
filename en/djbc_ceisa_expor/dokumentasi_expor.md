@@ -71,7 +71,7 @@ Open the **DJBC CEISA > Export > Export Documents** menu and click **Create**.
 | Discharge Port | – | Required |
 | Destination Port | Required | Required |
 | CIF / Export Value | – | Required |
-| Goods Readiness | Required | – |
+| Goods Readiness (PKB) | Required if Re-Export | – |
 
   ![Export Header](/assets/images/ceisa_expor_header.png)
 
@@ -102,10 +102,10 @@ Use the CEISA reference codes for each supporting document (Invoice `380`, B/L `
 
   ![Export Transport](/assets/images/ceisa_expor_pengangkut.png)
 
-### Step 5: Foreign Bank & Goods Readiness Tab (BC 3.0)
+### Step 5: Foreign Bank & Goods Readiness (PKB) Tab
 
 * **Foreign Bank** — Fill the bank receiving the foreign exchange from the export.
-* **Goods Readiness** — Required for BC 3.0, contains PIC and inspection-ready location. This becomes the basis for Customs to determine the **inspection channel (red/green)**.
+* **Goods Readiness (PKB)** — This tab only appears and is required if the Export Type is **Re-Export** (reference code 5 / other re-exports). For **Regular Export (Ekspor Biasa)**, this tab is automatically hidden and not required.
 
   ![Bank Devisa and Readiness](/assets/images/ceisa_expor_bankdevisa.png)
 
@@ -136,7 +136,7 @@ Before submission, the system runs `validate_before_send()`:
 
 | BC 3.0 Specific | Description |
 |---|---|
-| Goods Readiness | At least 1 line required |
+| Goods Readiness (PKB) | At least 1 line required only if Export Type = Re-Export (not validated for Regular Export) |
 | FOB / Goods Value | Must not be empty |
 | Loading Port, Export Port, Destination Port, Export Customs Office, Loading Customs Office | Required |
 

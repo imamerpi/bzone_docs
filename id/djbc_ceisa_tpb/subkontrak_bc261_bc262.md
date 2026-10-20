@@ -47,18 +47,39 @@ Pengisian dokumen BC 2.6.2 memiliki validasi skema yang sangat ketat pada server
 
 Berikut langkah-langkah pengisian yang benar di sistem BZone:
 
-### Langkah 1: Memilih Dokumen BC 2.6.1 Asal
+### Langkah 1: Memilih Dokumen BC 2.6.1 Asal & Penarikan Rincian Barang
 
 Pada tab **Header** dokumen BC 2.6.2:
 
 ![Formulir Header BC 2.6.2](/assets/images/ceisa_tpb_header.png)
 
 1. Temukan bagian **Dokumen Referensi / Dokumen Asal**:
-   * **Dokumen BC 2.6.1 Asal (`ref_doc_261_id`)**: Pilih dokumen pengeluaran BC 2.6.1 yang sebelumnya telah dibuat dan dikirim melalui BZone.
+   * **Dokumen BC 2.6.1 Asal (`ref_doc_261_id`)**: Pilih dokumen pengeluaran BC 2.6.1 yang sebelumnya telah dikirim (`state = sent`) melalui BZone.
 2. Sistem otomatis menarik data:
    * **Nomor Aju Asal (`nomor_aju_asal`)**: 26 digit nomor aju BC 2.6.1.
    * **Nomor Daftar Asal (`nomor_daftar_asal`)**: Nomor pendaftaran resmi yang diterbitkan oleh server Bea Cukai.
    * **Tanggal Daftar Asal (`tanggal_daftar_asal`)**: Tanggal pendaftaran dokumen BC 2.6.1.
+   * **Valuta & NDPBM**: Menyelaraskan mata uang dan kurs pabean dari dokumen asal jika belum ditentukan.
+   * **Dokumen Pelengkap 261**: Otomatis mendaftarkan/memperbarui baris dokumen pelengkap berkode `261` dengan nomor & tanggal daftar asal.
+
+> [!IMPORTANT]
+> **Ketentuan Penyaringan Dokumen BC 2.6.1 (Aturan 1-to-1 Link / Anti-Duplikasi):**
+> * Satu dokumen pengeluaran BC 2.6.1 hanya dapat dipertanggungjawabkan oleh **satu dokumen pemasukan kembali BC 2.6.2**.
+> * Dokumen BC 2.6.1 yang sudah pernah dipilih pada dokumen BC 2.6.2 lain **otomatis disembunyikan dari daftar dropdown**.
+> * Sistem juga dilengkapi *constraint* validasi di tingkat database untuk memblokir penyimpanan jika terjadi duplikasi dokumen BC 2.6.1 yang sama.
+
+> [!TIP]
+> **Fitur Otomatisasi "Tarik Barang & Bahan Baku dari BC 2.6.1":**
+> * Saat Anda pertama kali memilih dokumen BC 2.6.1 dan tabel Barang masih kosong, sistem **secara otomatis menarik seluruh rincian barang dan bahan baku** dari BC 2.6.1 tersebut.
+> * Anda juga dapat mengklik tombol **"Tarik Barang & Bahan Baku dari BC 2.6.1"** yang tersedia di Header maupun di tab **Barang**.
+> * Layar akan langsung me-reload data secara instan tanpa perlu me-refresh halaman (F5).
+
+> [!NOTE]
+> **Ketentuan Regulasi Tarif & Nilai Jaminan (Fasilitas Kode 8):**
+> * Dokumen BC 2.6.2 berfungsi untuk **menutup / mempertanggungjawabkan jaminan subkontrak** yang terpasang pada saat dokumen BC 2.6.1 diterbitkan.
+> * Oleh karena itu, tarif (BM, PPN, PPh) dan nilai fasilitas jaminan pada rincian bahan baku BC 2.6.2 **disalin sama persis (plek ketiplek)** dari dokumen BC 2.6.1 asalnya.
+> * Menyalin nilai asal mencegah terjadinya selisih jaminan (*unbalanced guarantee*) akibat perubahan kurs NDPBM harian atau pembaruan pos tarif CEISA yang dapat memicu penolakan rekonsiliasi jaminan oleh sistem Bea Cukai.
+> * Penarikan ulang dari master HS Code (`ceisa.tarif`) hanya berjalan sebagai *fallback* (jaga-jaga) apabila dokumen BC 2.6.1 asalnya belum memiliki rincian tarif.
 
 > [!NOTE]
 > **Bagaimana Sistem Menarik Nomor Daftar Otomatis?**

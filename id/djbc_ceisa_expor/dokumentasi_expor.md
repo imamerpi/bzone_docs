@@ -71,7 +71,7 @@ Buka menu **DJBC CEISA > Ekspor > Ekspor Documents** lalu klik **Create**.
 | Pelabuhan Bongkar | – | Wajib |
 | Pelabuhan Tujuan | Wajib | Wajib |
 | CIF / Nilai Ekspor | – | Wajib |
-| Kesiapan Barang | Wajib | – |
+| Kesiapan Barang (PKB) | Wajib jika Re-Ekspor | – |
 
   ![Header Dokumen Ekspor PEB BC 3.0](/assets/images/ceisa_expor_header.png)
 
@@ -102,10 +102,10 @@ Gunakan kode referensi CEISA untuk setiap dokumen pelengkap (Invoice `380`, B/L 
 
   ![Pengangkut Ekspor](/assets/images/ceisa_expor_pengangkut.png)
 
-### Langkah 5: Tab Bank Devisa & Kesiapan Barang (BC 3.0)
+### Langkah 5: Tab Bank Devisa & Kesiapan Barang (PKB)
 
 * **Bank Devisa** — Isi data bank yang menerima devisa hasil ekspor.
-* **Kesiapan Barang** — Wajib untuk BC 3.0, berisi PIC & lokasi barang siap periksa. Ini menjadi dasar Bea Cukai menentukan **jalur pemeriksaan (merah/hijau)**.
+* **Kesiapan Barang (PKB)** — Tab ini hanya muncul dan wajib diisi jika Jenis Ekspor yang dipilih adalah **Re-Ekspor** (kode referensi 5 / Re-Ekspor lainnya). Untuk **Ekspor Biasa**, tab ini otomatis tersembunyi dan tidak dibutuhkan.
 
   ![Bank Devisa dan Kesiapan Ekspor](/assets/images/ceisa_expor_bankdevisa.png)
 
@@ -136,7 +136,7 @@ Sebelum pengiriman, sistem menjalankan `validate_before_send()`:
 
 | Validasi Spesifik BC 3.0 | Keterangan |
 |---|---|
-| Kesiapan Barang | Wajib minimal 1 baris |
+| Kesiapan Barang (PKB) | Wajib diisi minimal 1 baris hanya jika Jenis Ekspor = Re-Ekspor (untuk Ekspor biasa tidak divalidasi) |
 | FOB / Nilai Barang | Tidak boleh kosong |
 | Pelabuhan Muat, Pelabuhan Ekspor, Pelabuhan Tujuan, Kantor Pabean Ekspor, Kantor Pabean Muat | Wajib |
 

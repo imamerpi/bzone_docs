@@ -148,6 +148,10 @@
       {
         "path": "djbc_ceisa_tpb/panduan_pengisian_ceisa",
         "title": "TPB 单证字段填写指南（BC 2.3、2.5 等）"
+      },
+      {
+        "path": "djbc_ceisa_tpb/subkontrak_bc261_bc262",
+        "title": "TPB 分包业务 BC 2.6.1 与 BC 2.6.2"
       }
     ]
   },
