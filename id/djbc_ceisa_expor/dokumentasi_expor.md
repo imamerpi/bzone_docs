@@ -62,7 +62,7 @@ Buka menu **DJBC CEISA > Ekspor > Ekspor Documents** lalu klik **Create**.
 * **Flag Curah** & **Flag Migas** — Pilih `1` (Ya) atau `2` (Tidak).
 * **FOB, Freight, Asuransi, CIF, NDPBM** — Nilai transaksi ekspor.
 * **Jenis Pengangkutan (`kode_jenis_pengangkutan`)** — Pilih metode pengangkutan (F.21) dari referensi `ceisa.ref.pengangkut` (misal `1 - SATU SARANA ANGKUT`).
-* **Tanggal Pemeriksaan (`tanggal_periksa`)** — Hanya muncul dan wajib jika Jenis Ekspor adalah **Re-Ekspor**. Pada Ekspor Biasa, field ini otomatis disembunyikan.
+* **Tanggal Pemeriksaan (`tanggal_periksa`)** — Wajib diisi untuk dokumen BC 3.0 (format `YYYY-MM-DD`, default otomatis tanggal hari ini) sesuai spesifikasi skema mandatory CEISA 4.0.
 
 | Field | BC 3.0 | BC 3.3 |
 |---|---|---|

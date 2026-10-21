@@ -15,13 +15,13 @@ Berdasarkan peraturan Direktorat Jenderal Bea dan Cukai (PER-09/BC/2021 dan PMK 
 | **Ekspor Fasilitas Khusus** | Menyesuaikan profil risiko dan skema fasilitas impor sementara/KITE. | Menyesuaikan penetapan pemeriksaan pabean. |
 
 > [!IMPORTANT]
-> **Prinsip Utama:** Pada **Ekspor Biasa**, sistem **TIDAK BOLEH** mengirimkan data `tanggalPeriksa` atau isi child array `kesiapanBarang` ke API CEISA. Jika data ini terkirim, mesin otomasi CEISA 4.0 akan menginterpretasikan bahwa eksportir meminta pemeriksaan fisik, sehingga status/tab **PKB akan muncul aktif di portal CEISA**.
+> **Prinsip Utama:** Pada dokumen BC 3.0, field header `tanggalPeriksa` adalah **elemen wajib (mandatory)** di JSON Schema CEISA 4.0 (jika tidak dikirim akan ditolak dengan error `CODE: 1028`). Field ini merekam tanggal rencana kesiapan/periksa (default tanggal pengajuan) dan **tidak memicu PKB**. Pemicu PKB/PPB diatur melalui profil risiko kepabeanan dan data detail kesiapan barang (`kesiapanBarang`). Pada **Ekspor Biasa**, child array `kesiapanBarang` cukup dikirim kosong `[]`.
 
 ---
 
 ## 2. Mekanisme & Logika Teknis di B-Zone
 
-Untuk memastikan dokumen Ekspor Biasa tidak memicu timbulnya PKB di portal CEISA, B-Zone menerapkan kontrol berikut:
+Untuk memastikan dokumen pengajuan ekspor sesuai dengan skema CEISA 4.0 dan tidak menimbulkan antrean PKB yang tidak perlu, B-Zone menerapkan kontrol berikut:
 
 ### A. Otomasi Deteksi Re-Ekspor (`is_re_ekspor`)
 Model `ceisa.export.document` memiliki compute field `is_re_ekspor`:
@@ -29,27 +29,30 @@ Model `ceisa.export.document` memiliki compute field `is_re_ekspor`:
 * Bernilai `False` jika memilih **Ekspor Biasa (Kode 1)** atau jenis ekspor non-pemeriksaan lainnya.
 
 ### B. Kontrol Tampilan Form (UI)
-* **Field Header `tanggal_periksa` (Tanggal Pemeriksaan) & `kode_kantor_periksa` (Kantor Pemeriksaan):**
-  * Disembunyikan dan **tidak wajib** jika `is_re_ekspor = False`.
-  * Hanya muncul dan **wajib** diisi jika `is_re_ekspor = True`.
+* **Field Header `tanggal_periksa` (Tanggal Pemeriksaan):**
+  * Ditampilkan dan **wajib** untuk seluruh dokumen BC 3.0 (default otomatis tanggal hari ini) sesuai ketentuan skema mandatory CEISA 4.0.
+* **Field Header `kode_kantor_periksa` (Kantor Pemeriksaan):**
+  * Diisi sesuai kantor pabean yang mengawasi gudang/pabrik (misal `051000` KPPBC Cikarang).
 * **Field Header `kode_lokasi` (Lokasi Penimbunan/Pemuatan F.30):**
-  * Tetap **wajib** untuk semua BC 3.0 (mandatori dari skema CEISA 4.0), namun **tidak memicu PKB** karena hanya mencatat kategori lokasi barang (misal `2` = Gudang Eksportir, `4` = TPS, `6` = TPB).
+  * Tetap **wajib** untuk semua BC 3.0 (mandatori dari skema CEISA 4.0), misal `6` = TPB / Kawasan Berikat.
 * **Tab Kesiapan Barang (PKB):**
-  * Otomatis tersembunyi jika dokumen adalah Ekspor Biasa. Seluruh field detail PKB (seperti `lokasi_siap_periksa`, PIC, telepon, waktu periksa) tidak dapat diinput dan tidak dikirim.
-  * Jika user sempat mengisi baris kesiapan lalu mengubah jenis ekspor ke Ekspor Biasa, sistem otomatis mengosongkan baris tersebut via onchange.
+  * Ditampilkan khusus jika `is_re_ekspor = True` atau jika memang memerlukan entry rincian kesiapan barang.
+  * Pada Ekspor Biasa, tab ini tidak perlu diisi dan child array `kesiapanBarang` tidak disertakan dalam payload agar tidak memicu PKB di CEISA.
 
 ### C. Serializer Payload API CEISA (`_prepare_ceisa_export_data`)
 Saat menyusun JSON untuk endpoint `POST /openapi/document`:
 ```python
-# Field tanggalPeriksa di-takeout sepenuhnya dari payload jika bukan Re-Ekspor / tidak diisi
-if self.is_re_ekspor and self.tanggal_periksa:
-    data['tanggalPeriksa'] = self.tanggal_periksa.strftime('%Y-%m-%d')
+# Field tanggalPeriksa wajib di header BC 3.0 (format YYYY-MM-DD)
+data['tanggalPeriksa'] = self.tanggal_periksa.strftime('%Y-%m-%d') if self.tanggal_periksa else ''
 
-# kesiapanBarang mengembalikan [] jika not is_re_ekspor
-data['kesiapanBarang'] = self.get_kesiapan_barang()
+# Child kesiapanBarang HANYA disertakan jika Re-Ekspor (is_re_ekspor)
+if self.is_re_ekspor:
+    kesiapan = self.get_kesiapan_barang()
+    if kesiapan:
+        data['kesiapanBarang'] = kesiapan
 ```
 Dengan format di atas:
-* **Ekspor Biasa:** `tanggalPeriksa` **sama sekali TIDAK disertakan** (di-takeout dari payload JSON) dan `kesiapanBarang` kosong `[]`, sehingga di portal CEISA dokumen diproses normal sebagai ekspor umum tanpa memicu antrean PKB.
+* **Ekspor Biasa:** `tanggalPeriksa` terkirim memenuhi skema mandatory CEISA 4.0, sedangkan child `kesiapanBarang` **tidak disertakan** sehingga CEISA tidak memicu form/antrean PKB kosong.
 * **Re-Ekspor:** `tanggalPeriksa` dan rincian `kesiapanBarang` (PIC, nomor telpon, lokasi siap periksa, kontainer, tanggal PKB, waktu siap periksa) terkirim lengkap sesuai skema JSON CEISA 4.0.
 
 ---
@@ -95,14 +98,11 @@ graph LR
 
 ## 4. Panduan Operasional & Troubleshooting
 
-### Kasus: Mengapa di Web CEISA Masih Muncul PKB Padahal Sudah Pilih Ekspor Biasa?
+### Mengapa Dokumen Ekspor Biasa Berhasil Terbit NPE (Jalur Hijau)?
 
-Jika pengguna menemukan dokumen yang di B-Zone dipilih Ekspor Biasa namun di portal CEISA tetap muncul tab/status PKB, lakukan pengecekan berikut:
-
-1. **Dokumen Dibuat/Dikirim Sebelum Pembaruan:**
-   * Jika dokumen dikirim sebelum tanggal 20 Oktober 2026, data `tanggalPeriksa` atau `kesiapanBarang` telah terlanjur masuk ke database Bea Cukai.
-   * **Solusi:** Buat dokumen **Draft Baru** di B-Zone dengan jenis Ekspor Biasa, konfirmasi, dan kirim ulang dengan Nomor Aju baru.
-2. **Pastikan Jenis Ekspor Benar:**
-   * Pastikan field **Jenis Ekspor** pada header bernilai **`1 - EKSPOR BIASA`**, bukan jenis Re-Ekspor.
-3. **Cek Tanggal Periksa:**
-   * Pada form B-Zone, pastikan field *Tanggal Pemeriksaan* tidak muncul/tidak terisi untuk Ekspor Biasa.
+Berdasarkan audit data riil CEISA (`BC_30.xlsx`), dokumen ekspor normal Kawasan Berikat:
+1. **Header `tanggalPeriksa` tetap ada & terisi** (disamakan dengan tanggal aju / hari ini).
+2. **Header `kodeKantorPeriksa` terisi** kantor pabean pengawas pabrik (misal `051000`).
+3. **Child `kesiapanBarang` tidak disertakan** (dikeluarkan dari payload JSON agar CEISA tidak menganggap ada permohonan PKB).
+4. **Jenis Ekspor**: Dipilih **`1 - EKSPOR BIASA`** (bukan `2 - BERKALA` atau `5 - RE-EKSPOR`).
+5. **Hasil CEISA**: Dokumen langsung memperoleh **Respon 3015 (Nota Pelayanan Ekspor / NPE)** tanpa melalui proses PKB.
