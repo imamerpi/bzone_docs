@@ -1,5 +1,7 @@
 # Penerimaan & Pengiriman Barang (Inventory)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul Pergudangan (*Inventory*) mengatur pergerakan fisik seluruh barang keluar-masuk perusahaan. Pada ekosistem BZone, setiap transaksi mutasi gudang juga dapat langsung dihubungkan dengan nomor pendaftaran dokumen pabean resmi Bea Cukai (BC 2.3, BC 4.0, BC 2.5, BC 4.1, atau PEB) sehingga rekonsiliasi data IT Inventory berjalan secara *real-time*.
 
 ---

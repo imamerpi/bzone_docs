@@ -1,5 +1,7 @@
 # Modul CEISA FTZ (djbc_ceisa_ftz)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_ceisa_ftz`** mengelola dokumen kepabeanan untuk perusahaan yang beroperasi di **Kawasan Perdagangan Bebas dan Pelabuhan Bebas (KPBPB) / Free Trade Zone (FTZ)**. Dokumen ini adalah panduan pengguna bagi tim Operasional Exim, Logistik, PPJK, dan Staf Kepabeanan.
 
 ---

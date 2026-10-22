@@ -1,5 +1,7 @@
 # CEISA FTZ Module (djbc_ceisa_ftz)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_ceisa_ftz`** module manages customs documents for companies operating within Indonesia's **Free Trade Zone (FTZ) / Kawasan Perdagangan Bebas dan Pelabuhan Bebas (KPBPB)**. This document is a user guide for Exim Operations, Logistics, Customs Brokers (PPJK), and Company Customs Staff.
 
 ---

@@ -1,5 +1,7 @@
 # Import Facility for Export Purposes (djbc_kite)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_kite`** module manages customs operations and statutory inventory accountability reporting for manufacturing enterprises operating under the **Kemudahan Impor Tujuan Ekspor (KITE)** facility, in full compliance with Directorate General of Customs and Excise (DJBC) regulations.
 
 ---

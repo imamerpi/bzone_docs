@@ -1,5 +1,7 @@
 # Panduan Pengisian Formulir CEISA 4.0 untuk TPB (djbc_ceisa_tpb)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Dokumen ini adalah **panduan pengguna (User Guide)** bagi tim Operasional Exim, Logistik, PPJK, dan Staf Kepabeanan Perusahaan dalam mengisi setiap tab pada formulir dokumen kepabeanan CEISA 4.0 untuk fasilitas **Tempat Penimbunan Berikat (TPB)**. Panduan ini bersifat non-teknis dan disusun berdasarkan praktik terbaik kepabeanan Indonesia.
 
 ---

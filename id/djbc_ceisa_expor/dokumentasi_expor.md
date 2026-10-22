@@ -1,5 +1,7 @@
 # Modul CEISA Ekspor (djbc_ceisa_expor)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_ceisa_expor`** mengelola dokumen **Pemberitahuan Ekspor Barang (PEB) / BC 3.0** dan **BC 3.3** ke portal CEISA 4.0 milik DJBC. Dokumen ini adalah panduan pengguna bagi tim Operasional Exim, Logistik, PPJK, dan Staf Kepabeanan.
 
 > [!IMPORTANT]

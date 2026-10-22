@@ -1,5 +1,7 @@
 # Basic Configurations & Master Documents (djbc_app)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_app`** module serves as the core foundation for the entire BZone ecosystem. It provides standardized customs master data, customs registration validations, and reporting period rules.
 
 ---

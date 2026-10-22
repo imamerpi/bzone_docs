@@ -1,5 +1,7 @@
 # CEISA Import Module (djbc_ceisa_impor)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_ceisa_impor`** module manages **Import Declaration Documents (BC 2.0 / PIB)** and submits them to the CEISA 4.0 portal of the Indonesian Directorate General of Customs and Excise (DJBC). This document is a user guide for Exim Operations, Logistics, Customs Brokers (PPJK), and Company Customs Staff.
 
 > [!IMPORTANT]
@@ -108,10 +110,127 @@ Choose the supporting document type per the CEISA reference codes:
 * Select **Product** from master → the system auto-fills **HS Code** (`pos_tarif`) and **CEISA Unit** from `product.product`.
 * Enter **Quantity** and **CIF Value** per line.
 * Select **Customs Valuation Method**: Method 1 to 6. If not Method 1, fill in the **Reason** in `alasan_metode_penentuan_nilai`.
-* **Goods Tariff** tab (Import Duty, VAT, Art 22 Tax, Excise) is auto-generated after HS Code is filled (see [CEISA Reference Guide](panduan_pengisian_ceisa.md) for automatic calculation from the TPB module).
+* **Goods Tariff** tab is auto-filled after the HS Code is selected — see [Automatic Tariff from HS Code](#51-automatic-tariff-from-hs-code) below.
 * **Special Specification** tab (for certain HS categories) and **Voluntary Declaration** can be filled as needed.
 
   ![Import Goods Details](/assets/images/ceisa_impor_barang.png)
+
+#### 5.1 Automatic Tariff from HS Code
+
+Each time a **Product** or **Pos Tarif / HS** is selected, the system pulls the official
+tariff from [CEISA Core](../djbc_ceisa_core/integrasi_ceisa_core.md) and fills the
+**Goods Tariff** tab with 3 mandatory rows: **BM** → **PPH** → **PPN**.
+
+##### Automatic fill triggers
+
+| Action | Result |
+| :--- | :--- |
+| Select a **Product** in the Goods tab | HS Code follows `product.hs_code_id`, tariff is pulled immediately |
+| Select / change **Pos Tarif / HS** | Pos Tarif updates, tariff is re-pulled |
+| Clear **Pos Tarif / HS** | **All Goods Tariff rows are deleted** |
+| Click **Tarik / Refresh Tarif CEISA** | Re-pulls from CEISA, bypassing the local cache |
+
+> [!IMPORTANT]
+> Setting **Pos Tarif / HS** manually on this line does **not** change the HS Code in the
+> product master. The field is linked to `product.hs_code_id` — change it from the
+> **Product** instead to keep master data consistent.
+
+##### Customs valuation and duty calculation formulas
+
+| Component | Calculation Formula | Description |
+| :--- | :--- | :--- |
+| **Goods CIF Value** | = FOB + Freight + Insurance *(or Unit Price x Quantity)* | Customs base in foreign currency |
+| **Customs Value (DPP BM)** | = CIF x NDPBM (Tax Exchange Rate) | CIF in IDR (rounded) |
+| **Import Duty (BM)** | = DPP BM x BM Tariff (%) | If advalorum, or = Quantity x Unit Tariff if specific |
+| **Import Value Base (DPP Impor)** | = Customs Value (CIF IDR) + Import Duty | Tax base for Art. 22 Income Tax and Import VAT |
+| **Art. 22 Income Tax (PPh)** | = DPP Impor x PPh Tariff (%) | 2.5% if Importer holds API/NIB; 7.5% if non-API |
+| **Import VAT (PPN)** | = DPP Impor x VAT Tariff (%) | Current statutory rate (11% or per HS Code) |
+
+> [!NOTE]
+> When `kode_jenis_tarif` = `2` (per-unit tariff), calculation uses **Quantity x Unit Tariff** instead.
+
+##### PPh Article 22 is determined automatically by API status
+
+The PPh tariff is determined automatically based on company credentials:
+
+1. `partner.kode_jenis_api` or `partner.nib` on company partner (`res.partner`)
+2. `company.nib`
+3. Document entity with Importer (`1`), Businessman (`3`), or Cargo Owner (`7`) role
+
+| Company Credential Status | PPh Article 22 Tariff |
+| :--- | :--- |
+| Holds NIB or API type (API-U / API-P) | **2.5%** |
+| Holds neither NIB nor API | **7.5%** |
+
+> [!TIP]
+> Holders of an exemption certificate (**SKB**) get **0%**. Manually adjust the tariff to 0% if holding an SKB.
+
+##### Facility and payment allocation
+
+* **PAID facility (`kode_fasilitas_tarif` = `1`)**: Amount goes to **Nilai Bayar** (Payable), and `Nilai Fasilitas` = 0.
+* **Exempt / Suspended facilities (`kode_fasilitas_tarif` other than `1`)**: Amount goes to **Nilai Fasilitas**, and `Nilai Bayar` = 0, with tariff facility set to 100%.
+* **Total Pungutan**: Sum of Nilai Bayar + Nilai Fasilitas across all tariff lines for that line item.
+
+---
+
+#### 5.2 Exchange Rate (NDPBM) Recompute and Pull Mechanism
+
+Customs exchange rates (NDPBM) are officially issued weekly by the Ministry of Finance. BZONE provides full cascading synchronization:
+
+1. **Auto-Fetch Rate from CEISA**:
+   - Click the refresh button (**Tarik Kurs Terkini dari CEISA**) next to the NDPBM field on the Transaction tab.
+   - The system retrieves the official active tax rate from the CEISA 4.0 server.
+2. **Cascading Recomputation**:
+   - Whenever NDPBM changes (via CEISA fetch or manual edit):
+     - All child goods lines on the **Barang** tab update their `ndpbm`.
+     - **Customs Value (CIF Rupiah)** is recomputed automatically.
+     - All duties and taxes (**Import Duty, PPh 22, VAT, etc.**) are recalculated based on the new CIF Rupiah.
+     - Empty tariff lines are automatically populated from the HS Code reference.
+3. **Document-Level Totals Summary**:
+   - Total **CIF** of the document auto-sums from all line item CIFs.
+   - Below the goods table, the system displays a summary footer:
+     - **Total BM** (Total Import Duty)
+     - **Total PPN** (Total Import VAT)
+     - **Total PPh** (Total Art. 22 Income Tax)
+     - **Total Bayar Pungutan** (Total billing payable to State Treasury)
+     - **Total Pungutan Fasilitas** (Total exempt/suspended charges)
+
+---
+
+#### 5.3 Customs Valuation Methods (BC 2.0 Column D.36)
+
+Per **Customs Law No. 17/2006 Article 15** and **MoF Regulation PMK 144/PMK.04/2022**, each imported item requires a declared valuation method:
+
+##### 1. Valuation Hierarchy
+
+* **Method 1 (Transaction Value of Imported Goods)** *(System Default)*:
+  - Standard for commercial imports based on the actual price paid or payable as stated on the Commercial Invoice.
+* **Method 2 (Transaction Value of Identical Goods)**:
+  - Used when no commercial transaction exists (e.g. gifts/samples), based on identical goods imported at or about the same time.
+* **Method 3 (Transaction Value of Similar Goods)**:
+  - Based on transaction value of similar goods.
+* **Method 4 (Deductive Value Method)**:
+  - Computed backwards from domestic sale price in Indonesia minus profit margin, local transport, and import duties.
+* **Method 5 (Computed Value Method)**:
+  - Computed forward from foreign manufacturing costs (materials, fabrication, plus standard producer profit).
+* **Method 6 (Fallback Method)**:
+  - Flexible, reasonable valuation derived from available data in Indonesia.
+
+##### 2. Non-Method 1 Mandatory Reason Rule
+
+* When selecting **Method 1**: Reason field is hidden and not required.
+* When selecting other methods (**Method 2 to 6**): **Alasan Penentuan Nilai** is **Mandatory (Required)**. The system blocks submission if reason is omitted to avoid CEISA rejection.
+
+Available Reason Codes:
+* `KON`: Non-sale consignment goods.
+* `CMA`: Non-sale gifts, promotional items, or samples.
+* `ITM`: Goods imported by an intermediary who does not purchase the goods.
+* `LES`: Non-sale leased goods.
+* `HBH`: Non-sale donation or grant goods.
+* `BTR`: Other non-sale transactions.
+* `TTS`: Commercial sale but fails transaction value criteria (e.g. restrictive conditions or related party pricing).
+
+---
 
 ### Step 6: Signatory Tab
 

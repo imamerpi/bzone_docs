@@ -1,5 +1,7 @@
 # Goods Receipt & Delivery (Inventory)
 
+> **Last updated:** 22 Oktober 2026
+
 The Inventory module controls physical movements of all inbound and outbound items. In the BZone ecosystem, every warehouse movement can be directly linked to official customs declaration registration numbers (BC 2.3, BC 4.0, BC 2.5, BC 4.1, or PEB) to ensure real-time IT Inventory audit compliance.
 
 ---

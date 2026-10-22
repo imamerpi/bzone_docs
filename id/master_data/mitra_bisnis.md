@@ -1,5 +1,7 @@
 # Master Data Mitra Bisnis (Vendor & Customer)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Master data mitra bisnis (*Partners*) mencakup profil pemasok (*Vendors*) dan pelanggan (*Customers*). Pada sistem BZone, data mitra bisnis tidak hanya digunakan untuk transaksi komersial (PO, SO, dan Faktur), melainkan juga menjadi identitas entitas resmi (Importir, Eksportir, Pengirim, Penerima, dan PPJK) pada dokumen pabean CEISA.
 
 ---

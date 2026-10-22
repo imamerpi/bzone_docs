@@ -1,5 +1,7 @@
 # 进口便利化用于出口目的（djbc_kite）
 
+> **最后更新：** 22 Oktober 2026
+
 **`djbc_kite`** 模块管理在 **Kemudahan Impor Tujuan Ekspor (KITE)** 便利化下运营的制造业的海关作业和法定库存责任申报，完全符合海关与消费税总局（DJBC）法规。
 
 ---

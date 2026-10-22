@@ -1,5 +1,7 @@
 # BZone IT Inventory & Customs Guide
 
+> **Last updated:** 22 Oktober 2026
+
 Welcome to the **BZone IT Inventory** documentation portal. This system is designed to fulfill regulatory compliance with the Directorate General of Customs and Excise (DJBC) of the Republic of Indonesia, specifically for **Bonded Zones (Kawasan Berikat - KB)**, **KITE**, **Free Trade Zones (FTZ)**, and **CEISA 4.0** integrations.
 
 ---

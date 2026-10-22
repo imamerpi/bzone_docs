@@ -1,5 +1,7 @@
 # Konektor Integrasi INSW IT Inventory (djbc_insw)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_insw`** (INSW Connector) menghubungkan sistem ERP BZone secara langsung dengan **Portal Lembaga National Single Window (LNSW)** Kementerian Keuangan melalui protokol REST API IT Inventory (`https://api.insw.go.id`).
 
 ---

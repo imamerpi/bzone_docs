@@ -1,5 +1,7 @@
 # Siklus Operasional Pengadaan (Purchase)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Siklus pengadaan mencakup tahapan pengajuan permintaan penawaran harga (*Request for Quotation / RFQ*), persetujuan pesanan pembelian (*Purchase Order / PO*), penerimaan fisik material (*Goods Receipt*), serta verifikasi tagihan pemasok (*Vendor Bill*).
 
 ---

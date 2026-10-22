@@ -1,5 +1,7 @@
 # Physical Inventory / Stock Opname Execution (djbc_stock_opname)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_stock_opname`** module manages physical inventory counting (*Stock Opname*) operations in Bonded Zones, KITE facilities, and other customs-supervised areas to meet the regulatory compliance requirements of the Directorate General of Customs and Excise (DJBC).
 
 ---

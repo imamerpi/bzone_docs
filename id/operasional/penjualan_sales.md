@@ -1,5 +1,7 @@
 # Siklus Operasional Penjualan (Sales)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Siklus penjualan mencakup tahapan penawaran harga (*Quotation*), pemesanan penjualan (*Sales Order*), otomasi produksi berdasarkan pesanan (*Make to Order / MTO*), hingga penerbitan faktur tagihan pelanggan (*Customer Invoice*).
 
 ---

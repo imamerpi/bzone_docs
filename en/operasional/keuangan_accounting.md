@@ -1,5 +1,7 @@
 # Accounting & Finance Management
 
+> **Last updated:** 22 Oktober 2026
+
 The Accounting & Finance module governs recognition of Accounts Payable (*Vendor Bills*), Accounts Receivable (*Customer Invoices*), bank and cash disbursements, and key financial reporting including the Profit and Loss statement.
 
 ---

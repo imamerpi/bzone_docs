@@ -1,5 +1,7 @@
 # Keuangan & Akuntansi (Accounting & Finance)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul Keuangan & Akuntansi (*Accounting & Finance*) mengelola pengakuan hutang usaha (*Vendor Bills*), piutang usaha (*Customer Invoices*), eksekusi pembayaran kas/bank, hingga penyusunan laporan keuangan komprehensif seperti Laporan Laba Rugi (*Profit and Loss*).
 
 ---

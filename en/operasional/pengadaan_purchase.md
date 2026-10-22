@@ -1,5 +1,7 @@
 # Procurement Operational Cycle (Purchase)
 
+> **Last updated:** 22 Oktober 2026
+
 The procurement workflow covers request for quotation (RFQ) creation, vendor price confirmation, purchase order (PO) approval, warehouse goods receipt, and vendor bill verification.
 
 ---

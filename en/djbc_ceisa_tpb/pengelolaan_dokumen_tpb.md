@@ -1,5 +1,7 @@
 # CEISA 4.0 TPB Document Management (djbc_ceisa_tpb)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_ceisa_tpb`** module manages the complete lifecycle of drafting, validating, submitting, and tracking **Bonded Storage Facilities (Tempat Penimbunan Berikat - TPB)** customs declarations directly through the Indonesian Directorate General of Customs and Excise (DJBC) **CEISA 4.0** system.
 
 ---

@@ -1,5 +1,7 @@
 # Master Data Produk & Rute Logistik
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Master data produk merupakan fondasi utama operasional ERP dan pelaporan kepabeanan BZone IT Inventory. Setiap barang yang disimpan, diproduksi, dibeli, atau dijual wajib memiliki master data dengan parameter akuntansi, rute logistik, dan klasifikasi kepabeanan yang tepat.
 
 ---

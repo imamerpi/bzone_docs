@@ -1,5 +1,7 @@
 # INSW IT Inventory Integration Connector (djbc_insw)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_insw`** (INSW Connector) module interfaces the BZone ERP ecosystem directly with the **National Single Window Agency (Lembaga National Single Window / LNSW)** portal under the Ministry of Finance via standard IT Inventory REST APIs (`https://api.insw.go.id`).
 
 ---

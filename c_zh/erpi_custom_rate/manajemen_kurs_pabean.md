@@ -1,5 +1,7 @@
 # 海关与税务汇率管理（erpi_custom_rate）
 
+> **最后更新：** 22 Oktober 2026
+
 **`erpi_custom_rate`** 模块在采购订单、销售订单和开票单证（*客户发票与供应商账单*）上提供手动货币汇率（*Custom Currency Rate*）设定。
 
 ---

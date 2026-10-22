@@ -1,5 +1,7 @@
 # Alur Operasional Pemasukan & Pengeluaran Barang (djbc_kb)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Dokumen ini menjelaskan alur operasional pencatatan mutasi fisik barang yang terintegrasi langsung dengan dokumen kepabeanan pada sistem BZone Kawasan Berikat.
 
 ---

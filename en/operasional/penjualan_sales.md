@@ -1,5 +1,7 @@
 # Sales Operational Cycle (Sales)
 
+> **Last updated:** 22 Oktober 2026
+
 The sales workflow covers quotation preparation, sales order confirmation, automated Make to Order (MTO) execution, outbound delivery, and customer invoice generation with payment registration.
 
 ---

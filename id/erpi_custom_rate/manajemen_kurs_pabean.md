@@ -1,5 +1,7 @@
 # Manajemen Kurs Pabean KMK (erpi_custom_rate)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`erpi_custom_rate`** menyediakan kapabilitas penentuan kurs mata uang manual (*Custom Currency Rate*) pada transaksi Pembelian (*Purchase Order*), Penjualan (*Sale Order*), dan Faktur Akuntansi (*Customer Invoices & Vendor Bills*).
 
 ---

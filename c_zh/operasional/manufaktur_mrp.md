@@ -1,5 +1,7 @@
 # 生产与物料清单（MRP）
 
+> **最后更新：** 22 Oktober 2026
+
 生产模块（MRP）负责管理配方（*物料清单 Bills of Materials / BoM*）、工单和生产订单（*Manufacturing Orders / MO*）、车间物料转移以及从原材料到在制品（WIP）或成品的转化。
 
 ---

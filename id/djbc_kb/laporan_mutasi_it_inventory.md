@@ -1,5 +1,7 @@
 # 7 Laporan Mutasi Resmi IT Inventory DJBC (djbc_kb)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Sistem BZone menyediakan **7 Laporan Pertanggungjawaban Resmi** yang wajib diakses oleh petugas pemeriksa Bea Cukai secara *online* dan *real-time* sesuai **Peraturan Direktur Jenderal Bea dan Cukai Nomor PER-02/BC/2019**.
 
 ---

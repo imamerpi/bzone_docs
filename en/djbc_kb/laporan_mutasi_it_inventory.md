@@ -1,5 +1,7 @@
 # 7 Mandatory Customs Mutation Reports (djbc_kb)
 
+> **Last updated:** 22 Oktober 2026
+
 BZone provides **7 Official Reconciliation Reports** required for real-time compliance inspections by Customs auditors in accordance with Director General of Customs and Excise Regulation **PER-02/BC/2019**.
 
 ---

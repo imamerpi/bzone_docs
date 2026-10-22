@@ -1,5 +1,7 @@
 # Pelaksanaan Stock Opname IT Inventory (djbc_stock_opname)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_stock_opname`** dirancang khusus untuk mengelola seluruh tahapan pelaksanaan perhitungan fisik persediaan (*Stock Opname*) di fasilitas Kawasan Berikat, KITE, maupun Tempat Penimbunan Berikat lainnya guna memenuhi ketentuan kepatuhan Direktorat Jenderal Bea dan Cukai (DJBC).
 
 ---

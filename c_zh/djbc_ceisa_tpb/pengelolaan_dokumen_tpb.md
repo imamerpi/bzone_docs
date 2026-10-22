@@ -1,5 +1,7 @@
 # CEISA 4.0 TPB 单证管理（djbc_ceisa_tpb）
 
+> **最后更新：** 22 Oktober 2026
+
 **`djbc_ceisa_tpb`** 模块通过印度尼西亚海关与消费税总局（DJBC）的 **CEISA 4.0** 系统直接管理 **保税仓储设施（Tempat Penimbunan Berikat - TPB）** 海关申报的完整起草、验证、提交和跟踪生命周期。
 
 ---

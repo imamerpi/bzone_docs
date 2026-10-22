@@ -1,5 +1,7 @@
 # Klasifikasi Kategori Barang IT Inventory (djbc_kb)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Pada fasilitas Kawasan Berikat, setiap barang yang berada di dalam area pabrik wajib diklasifikasikan ke dalam kategori IT Inventory yang baku sesuai **Peraturan Direktur Jenderal Bea dan Cukai Nomor PER-02/BC/2019**.
 
 ---

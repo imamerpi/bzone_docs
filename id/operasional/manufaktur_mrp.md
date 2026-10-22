@@ -1,5 +1,7 @@
 # Siklus Manufaktur & Bill of Materials (MRP)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul Manufaktur (*Manufacturing / MRP*) mengatur formula komposisi resep bahan baku (*Bill of Materials*), penerbitan Surat Perintah Kerja / Pesanan Produksi (*Manufacturing Order*), pemindahan material lantai pabrik (*Shop Floor Transfer*), hingga konversi bahan mentah menjadi barang jadi atau barang dalam proses (*Work-in-Progress / WIP*).
 
 ---

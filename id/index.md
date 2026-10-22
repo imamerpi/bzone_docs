@@ -1,5 +1,7 @@
 # Panduan BZone IT Inventory & Kepabeanan
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Selamat datang di portal dokumentasi **BZone IT Inventory**. Sistem ini dirancang untuk memenuhi kepatuhan regulasi Direktorat Jenderal Bea dan Cukai (DJBC) Republik Indonesia, khususnya untuk fasilitas **Kawasan Berikat (KB)**, **Kemudahan Impor Tujuan Ekspor (KITE)**, **Free Trade Zone (FTZ)**, dan integrasi layanan **CEISA 4.0**.
 
 ---

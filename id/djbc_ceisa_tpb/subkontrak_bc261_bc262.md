@@ -1,5 +1,7 @@
 # Panduan Subkontrak TPB: BC 2.6.1 & BC 2.6.2
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Dokumen ini menjelaskan alur operasional, ketentuan regulasi pabean CEISA 4.0, serta panduan teknis pengisian dokumen pengeluaran subkontrak (**BC 2.6.1**) dan pemasukan kembali barang hasil subkontrak (**BC 2.6.2**) pada modul **`djbc_ceisa_tpb`**.
 
 ---

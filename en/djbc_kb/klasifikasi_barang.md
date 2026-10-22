@@ -1,5 +1,7 @@
 # IT Inventory Classification (djbc_kb)
 
+> **Last updated:** 22 Oktober 2026
+
 In bonded zone facilities, all goods inside factory premises must be classified into standard IT Inventory categories compliant with Director General of Customs and Excise Regulation **PER-02/BC/2019**.
 
 ---

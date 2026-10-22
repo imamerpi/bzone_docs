@@ -1,5 +1,7 @@
 # CEISA Export Module (djbc_ceisa_expor)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_ceisa_expor`** module manages **Export Declaration Documents (PEB / BC 3.0)** and **BC 3.3** submissions to the CEISA 4.0 portal of DJBC. This document is a user guide for Exim Operations, Logistics, Customs Brokers (PPJK), and Company Customs Staff.
 
 > [!IMPORTANT]

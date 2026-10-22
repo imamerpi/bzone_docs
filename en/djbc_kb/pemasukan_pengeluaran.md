@@ -1,5 +1,7 @@
 # Inbound & Outbound Workflows (djbc_kb)
 
+> **Last updated:** 22 Oktober 2026
+
 This document details the operational workflow for physical inventory movements integrated with Indonesian customs documentation.
 
 ---

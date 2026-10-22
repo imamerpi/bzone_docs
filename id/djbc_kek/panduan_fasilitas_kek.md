@@ -1,5 +1,7 @@
 # Fasilitas Kawasan Ekonomi Khusus (djbc_kek)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_kek`** dirancang khusus untuk memenuhi kepatuhan kepabeanan dan pelaporan persediaan (*IT Inventory*) bagi Badan Usaha dan Pelaku Usaha di **Kawasan Ekonomi Khusus (KEK)** sesuai regulasi Direktorat Jenderal Bea dan Cukai (DJBC) Republik Indonesia.
 
 ---

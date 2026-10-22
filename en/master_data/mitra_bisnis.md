@@ -1,5 +1,7 @@
 # Business Partners (Vendor & Customer)
 
+> **Last updated:** 22 Oktober 2026
+
 Business Partner master data (*Partners*) encompasses supplier (*Vendor*) and client (*Customer*) records. In the BZone ecosystem, partner data serves not only commercial transactions (PO, SO, and Invoices), but also official trade entity declarations (Importer, Exporter, Consignor, Consignee, and Customs Broker / PPJK) for CEISA customs documents.
 
 ---

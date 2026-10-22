@@ -1,5 +1,7 @@
 # Ketentuan Ekspor Biasa vs Kesiapan Barang (PKB) & Jenis Pengangkutan
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Dokumen ini menjelaskan ketentuan kepabeanan dan aturan teknis pada modul **`djbc_ceisa_expor`** (BC 3.0 / PEB) terkait penanganan **Pemberitahuan Kesiapan Barang (PKB)** pada Ekspor Biasa serta referensi **Jenis Pengangkutan**.
 
 ---

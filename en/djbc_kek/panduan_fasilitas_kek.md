@@ -1,5 +1,7 @@
 # Special Economic Zone Facility (djbc_kek)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`djbc_kek`** module is specifically designed to meet customs compliance and inventory reporting (*IT Inventory*) requirements for Zone Enterprises and Business Entities operating within **Special Economic Zones (Kawasan Ekonomi Khusus - KEK)** pursuant to Indonesian Directorate General of Customs and Excise (DJBC) regulations.
 
 ---

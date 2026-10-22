@@ -1,5 +1,7 @@
 # Konfigurasi Dasar & Master Dokumen (djbc_app)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_app`** berfungsi sebagai modul induk (*parent dependency*) bagi seluruh ekosistem BZone. Modul ini menyediakan master data kepabeanan standar, validasi nomor pendaftaran pabean, dan aturan periode pelaporan.
 
 ---

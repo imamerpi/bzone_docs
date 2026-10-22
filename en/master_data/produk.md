@@ -1,5 +1,7 @@
 # Product Master Data & Logistics Routes
 
+> **Last updated:** 22 Oktober 2026
+
 Product master data is the core foundation for ERP operations and BZone IT Inventory customs compliance. Every item stored, manufactured, purchased, or sold must have properly configured accounting parameters, logistics routes, and customs classifications.
 
 ---

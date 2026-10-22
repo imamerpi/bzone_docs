@@ -1,5 +1,7 @@
 # 物理库存 / 库存盘点执行（djbc_stock_opname）
 
+> **最后更新：** 22 Oktober 2026
+
 **`djbc_stock_opname`** 模块管理保税区、KITE 便利化和其他海关监管区域的物理库存盘点（*Stock Opname*）操作，以满足海关与消费税总局（DJBC）的合规要求。
 
 ---

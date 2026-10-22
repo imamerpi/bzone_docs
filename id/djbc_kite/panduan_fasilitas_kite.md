@@ -1,5 +1,7 @@
 # Fasilitas Kemudahan Impor Tujuan Ekspor (djbc_kite)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_kite`** dirancang khusus untuk mengelola operasional kepabeanan dan pelaporan pertanggungjawaban persediaan bagi perusahaan penerima fasilitas **Kemudahan Impor Tujuan Ekspor (KITE)** sesuai regulasi Direktorat Jenderal Bea dan Cukai (DJBC).
 
 ---

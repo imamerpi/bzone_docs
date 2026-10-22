@@ -1,5 +1,7 @@
 # Integrasi Fondasi CEISA 4.0 (djbc_ceisa_core)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_ceisa_core`** adalah lapisan integrasi utama (*core gateway*) yang menghubungkan seluruh operasional kepabeanan BZone di Odoo dengan ekosistem **CEISA 4.0 (Customs-Excise Information System and Automation)** Direktorat Jenderal Bea dan Cukai (DJBC) Republik Indonesia via RESTful OpenAPI.
 
 ---

@@ -1,5 +1,7 @@
 # CEISA 4.0 基础集成（djbc_ceisa_core）
 
+> **最后更新：** 22 Oktober 2026
+
 **`djbc_ceisa_core`** 模块作为主要集成网关，通过 RESTful OpenAPI 将 Odoo 中的所有 BZone 海关作业与印度尼西亚海关与消费税总局（DJBC）的 **CEISA 4.0（海关-消费税信息系统与自动化）** 生态系统连接。
 
 ---

@@ -1,5 +1,7 @@
 # Customs & Tax Exchange Rate Management (erpi_custom_rate)
 
+> **Last updated:** 22 Oktober 2026
+
 The **`erpi_custom_rate`** module provides manual currency rate specification (*Custom Currency Rate*) across Purchase Orders, Sales Orders, and Invoicing documents (*Customer Invoices & Vendor Bills*).
 
 ---

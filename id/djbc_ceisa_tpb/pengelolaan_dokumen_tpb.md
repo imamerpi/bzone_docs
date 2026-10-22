@@ -1,5 +1,7 @@
 # Pengelolaan Dokumen TPB CEISA 4.0 (djbc_ceisa_tpb)
 
+> **Terakhir diperbarui:** 22 Oktober 2026
+
 Modul **`djbc_ceisa_tpb`** mengelola siklus lengkap pembuatan, validasi, pengiriman, dan pemantauan dokumen kepabeanan **Tempat Penimbunan Berikat (TPB)** secara langsung ke sistem **CEISA 4.0** Direktorat Jenderal Bea dan Cukai (DJBC).
 
 ---

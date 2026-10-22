@@ -1,5 +1,7 @@
 # Manufacturing & Bill of Materials (MRP)
 
+> **Last updated:** 22 Oktober 2026
+
 The Manufacturing module (MRP) oversees recipe formulas (*Bills of Materials / BoM*), work orders and production orders (*Manufacturing Orders / MO*), shop floor material transfers, and product conversions from raw materials into Work-in-Progress (WIP) or finished goods.
 
 ---

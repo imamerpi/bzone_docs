@@ -1,5 +1,7 @@
 # CEISA 4.0 Filling Guide for Bonded Storage Facilities (djbc_ceisa_tpb)
 
+> **Last updated:** 22 Oktober 2026
+
 This document is a **User Guide** for Exim Operations, Logistics, Customs Brokers (PPJK), and Company Customs Staff when filling in each tab of the CEISA 4.0 customs declaration form for **Bonded Storage Facilities (Tempat Penimbunan Berikat - TPB)**. This guide is non-technical and is structured based on Indonesian customs best practices.
 
 ---

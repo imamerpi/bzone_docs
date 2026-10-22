@@ -1,5 +1,7 @@
 # INSW IT 库存集成连接器（djbc_insw）
 
+> **最后更新：** 22 Oktober 2026
+
 **`djbc_insw`**（INSW 连接器）模块通过标准 IT 库存 REST API（`https://api.insw.go.id`）将 BZone ERP 生态系统直接对接财政部下属的 **国家单一窗口机构（Lembaga National Single Window / LNSW）** 门户。
 
 ---

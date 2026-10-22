@@ -1,5 +1,7 @@
 # TPB Subcontracting Guide: BC 2.6.1 & BC 2.6.2
 
+> **Last updated:** 22 Oktober 2026
+
 This document explains the operational workflow, CEISA 4.0 customs regulatory provisions, and technical guide for filling subcontract outbound documents (**BC 2.6.1**) and subcontract inbound return documents (**BC 2.6.2**) in the **`djbc_ceisa_tpb`** module.
 
 ---

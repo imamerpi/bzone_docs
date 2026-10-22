@@ -1,5 +1,7 @@
 # CEISA 出口模块（djbc_ceisa_expor）
 
+> **最后更新：** 22 Oktober 2026
+
 **`djbc_ceisa_expor`** 模块管理 **出口报关单（PEB / BC 3.0）** 和 **BC 3.3** 提交到 DJBC 的 CEISA 4.0 门户。本文档是进出口运营、后勤、保税报关行（PPJK）和公司海关工作人员的用户指南。
 
 > [!IMPORTANT]
