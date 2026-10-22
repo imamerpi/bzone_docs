@@ -95,14 +95,3 @@ graph LR
   * `6` — SARANA ANGKUT LAINNYA
 
 ---
-
-## 4. Panduan Operasional & Troubleshooting
-
-### Mengapa Dokumen Ekspor Biasa Berhasil Terbit NPE (Jalur Hijau)?
-
-Berdasarkan audit data riil CEISA (`BC_30.xlsx`), dokumen ekspor normal Kawasan Berikat:
-1. **Header `tanggalPeriksa` tetap ada & terisi** (disamakan dengan tanggal aju / hari ini).
-2. **Header `kodeKantorPeriksa` terisi** kantor pabean pengawas pabrik (misal `051000`).
-3. **Child `kesiapanBarang` tidak disertakan** (dikeluarkan dari payload JSON agar CEISA tidak menganggap ada permohonan PKB).
-4. **Jenis Ekspor**: Dipilih **`1 - EKSPOR BIASA`** (bukan `2 - BERKALA` atau `5 - RE-EKSPOR`).
-5. **Hasil CEISA**: Dokumen langsung memperoleh **Respon 3015 (Nota Pelayanan Ekspor / NPE)** tanpa melalui proses PKB.
