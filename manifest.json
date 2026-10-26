@@ -19,8 +19,13 @@
       "flag": "🇨🇳"
     }
   ],
-  "default_version": "19.0",
+  "default_version": "20.0",
   "versions": [
+    {
+      "code": "20.0",
+      "name": "v20.0 (Odoo 20)",
+      "branch": "20.0"
+    },
     {
       "code": "19.0",
       "name": "v19.0 (Odoo 19)",
