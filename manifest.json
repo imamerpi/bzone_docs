@@ -23,18 +23,13 @@
   "versions": [
     {
       "code": "20.0",
-      "name": "v20.0 (Odoo 20)",
+      "name": "v20.0",
       "branch": "20.0"
     },
     {
       "code": "19.0",
-      "name": "v19.0 (Odoo 19)",
+      "name": "v19.0",
       "branch": "19.0"
     },
-    {
-      "code": "main",
-      "name": "Main (Development)",
-      "branch": "main"
-    }
   ]
 }
