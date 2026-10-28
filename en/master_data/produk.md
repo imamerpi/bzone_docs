@@ -13,7 +13,7 @@ To create a new product master record:
 3. Click the **New** button in the upper-left corner.
 
 ![Product Master Form View](../assets/images/master_produk_general.png)
-*Figure 1.1: Product master creation form in Odoo 19.*
+*Figure 1.1: Product master creation form in Odoo 20.*
 
 ---
 
