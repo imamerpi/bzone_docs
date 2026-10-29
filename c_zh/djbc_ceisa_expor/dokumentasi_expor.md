@@ -12,10 +12,25 @@
 | BC 编码 | 单证类型 | 用途 |
 |---|---|---|
 | **BC 3.0** | 出口报关（PEB） | 从 TLDDP（海关区域内的其他位置 / 一般仓库）到海外目的地的确定性出口。 |
-| **BC 3.3** | 来自保税物流中心（PLB）的 PEB | 从保税物流中心（PLB）到海外目的地的货物出口。 |
+| **BC 3.3** | 来自保税物流中心（PLB）的 PEB | 从保税物流中心（PLB）存放货物到海外目的地的货物出口。 |
 
 > [!TIP]
 > 单证成功提交到 CEISA 并达到 `Sent` 状态后，印度尼西亚海关将返回 **NPE（出口登记号）**，用作港口清关的参考。
+
+### BC 3.3 中的原海关单证概念与关联（类似于 BC 2.6.1 与 BC 2.6.2）
+
+与直接从一般仓库/TLDDP 出口货物的 BC 3.0 不同，**BC 3.3** 用于将货物从 **保税物流中心（PLB）** 出口到海外。由于 PLB 是保税仓储场所，存放在 PLB 内的每件货物 **必定事先通过入库海关单证进入 PLB**。
+
+在海关概念上，此机制 **类似于 TPB 中 BC 2.6.1 和 BC 2.6.2 的关系**（出库/核销单证必须引用其原始入库单证以扣减保税库存余额）：
+
+| 进入 PLB 的货物来源 | 原单证代码 (`kodeDokAsal`) | 说明 |
+|---|---|---|
+| **来自国内 (TLDDP)** | **`40`** (BC 4.0) | 从关境内其他地方进入 PLB 的货物。 |
+| **来自海外 (进口)** | **`16`** (BC 1.6) | 从关境外进入 PLB 的货物。 |
+| **来自其他 PLB / 保税区** | **`27`** (BC 2.7) | 保税仓储场所 (TPB) 之间的货物转移。 |
+| **出口货物集拼** | **`331`** (BC 3.3.1 / P3BET) | 通过 PLB 集拼出口货物。 |
+
+因此，在 **BC 3.3** 的 CEISA 4.0 JSON 架构中，`barang[]` 中的每个商品项都必须包含 **原海关单证** 属性（`kodeKantorAsal`、`kodeDokAsal`、`nomorDaftarDokAsal`、`tanggalDaftarDokAsal`、`nomorAjuDokAsal` 和 `seriBarangDokAsal`）。
 
 ---
 
@@ -109,9 +124,11 @@ graph TD
 
   ![外汇银行和就绪](/assets/images/ceisa_expor_bankdevisa.png)
 
-### 步骤 6：货物详情选项卡
+### 步骤 6：货物详情选项卡与原海关单证（BC 3.3）
 
 从主数据中选择产品 → HS 编码和 CEISA 单位自动填充。输入 **数量**、**每单位 FOB 价格** 和每个项目的 **FOB 值**。
+
+针对 **BC 3.3** 单证，货物详情表单和货物列表列包含 **原海关单证（Dokumen Pabean Asal - BC 3.3）** 部分，用于关联并自动填充 `kodeKantorAsal`（原海关办公室）、`kodeDokAsal`（原单证代码，如 `40`、`16`、`27`）、`nomorDaftarDokAsal`（原登记号）、`tanggalDaftarDokAsal`（原登记日期）、`nomorAjuDokAsal`（26 位原申请号）以及 `seriBarangDokAsal`（原单证商品序号）。
 
   ![出口货物详情](/assets/images/ceisa_expor_barang.png)
 

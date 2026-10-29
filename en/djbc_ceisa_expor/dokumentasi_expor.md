@@ -12,10 +12,25 @@ The **`djbc_ceisa_expor`** module manages **Export Declaration Documents (PEB / 
 | BC Code | Document Type | Purpose |
 |---|---|---|
 | **BC 3.0** | Export Declaration (PEB) | Definitive export from TLDDP (other locations within the customs area / general warehouses) to overseas destinations. |
-| **BC 3.3** | PEB from Bonded Logistics Center (PLB) | Export of goods from a Bonded Logistics Center (PLB) to overseas destinations. |
+| **BC 3.3** | PEB from Bonded Logistics Center (PLB) | Export of goods stored in a Bonded Logistics Center (PLB) to overseas destinations. |
 
 > [!TIP]
 > After a document is successfully submitted to CEISA and reaches the `Sent` state, Indonesian Customs will return an **NPE (Nomor Pendaftaran Ekspor)** that is used as the reference for port clearance.
+
+### Concept & Origin Customs Document Reference in BC 3.3 (Similar to BC 2.6.1 & BC 2.6.2)
+
+Unlike BC 3.0 which exports goods directly from a general warehouse/TLDDP, **BC 3.3** is used to release goods from a **Bonded Logistics Center (PLB)** to overseas buyers. Because a PLB is a bonded storage facility, every item stored inside a PLB **must have previously entered using an inbound customs document**.
+
+Conceptually, this mechanism is **similar to the relationship between BC 2.6.1 and BC 2.6.2 in TPB** (where the outbound/settlement document must reference its origin inbound document to deduct the bonded stock balance):
+
+| Inbound Origin to PLB | Origin Document Code (`kodeDokAsal`) | Description |
+|---|---|---|
+| **From Domestic (TLDDP)** | **`40`** (BC 4.0) | Entry of goods from other places within the customs territory into the PLB. |
+| **From Overseas (Import)** | **`16`** (BC 1.6) | Entry of goods from outside the customs territory into the PLB. |
+| **From Another PLB / Bonded Zone** | **`27`** (BC 2.7) | Transfer of goods between Bonded Storage Places (TPB). |
+| **Export Goods Consolidation** | **`331`** (BC 3.3.1 / P3BET) | Consolidation of export goods through a PLB. |
+
+Therefore, under the CEISA 4.0 JSON schema for **BC 3.3**, each item in `barang[]` must include its **Origin Customs Document** attributes (`kodeKantorAsal`, `kodeDokAsal`, `nomorDaftarDokAsal`, `tanggalDaftarDokAsal`, `nomorAjuDokAsal`, and `seriBarangDokAsal`) in addition to listing the origin document in the **Supporting Documents** tab.
 
 ---
 
@@ -64,13 +79,15 @@ Open the **DJBC CEISA > Export > Export Documents** menu and click **Create**.
 
 | Field | BC 3.0 | BC 3.3 |
 |---|---|---|
-| Export Customs Office | Required | – |
-| Loading Customs Office | Required | – |
+| Export Customs Office (`kode_kantor_ekspor`) | Required | – |
+| Loading / Origin Customs Office (`kode_kantor_muat`) | Required | Required (Auto-filled from Customs Office) |
+| PLB Operator, Origin Warehouse Code, PLB Transport Mode, Origin Region | – | Required |
 | Loading Port | Required | Required |
 | Export Port | Required | – |
 | Discharge Port | – | Required |
 | Destination Port | Required | Required |
-| CIF / Export Value | – | Required |
+| FOB Value (`fob`) | Required if Re-Export | Required (> 0) |
+| Foreign Bank (`bank_devisa_ids`) | Required | Optional |
 | Goods Readiness (PKB) | Required if Re-Export | – |
 
   ![Export Header](/assets/images/ceisa_expor_header.png)
@@ -109,9 +126,20 @@ Use the CEISA reference codes for each supporting document (Invoice `380`, B/L `
 
   ![Bank Devisa and Readiness](/assets/images/ceisa_expor_bankdevisa.png)
 
-### Step 6: Goods Details Tab
+### Step 6: Goods Details Tab & Origin Customs Document (BC 3.3)
 
 Select a product from the master → HS Code and CEISA unit are auto-filled. Enter **quantity**, **FOB price per unit**, and **FOB value** per item.
+
+Specifically for **BC 3.3** documents, the goods detail form and optional goods list columns include the **Origin Customs Document (BC 3.3)** section to reference the inbound PLB document:
+
+| BZone Field | CEISA `barang[]` JSON Key | Description & Automation |
+|---|---|---|
+| **Origin Customs Office (`kode_kantor_asal`)** | `kodeKantorAsal` | Customs Office where the origin document was registered. **Auto-filled** from `Origin Office` (`kode_kantor_muat`) or `Customs Office` (`kode_kantor`) on the header. |
+| **Origin Document Code (`kode_dok_asal`)** | `kodeDokAsal` | Inbound PLB document type (`40`, `16`, `27`, `331`, etc.). **Auto-filled** from Other Supporting Documents (`doc_lainnya_ids`) when present. |
+| **Origin Registration No. (`nomor_daftar_dok_asal`)** | `nomorDaftarDokAsal` | 6-digit registration number of the origin document (e.g. `014743`). **Auto-filled** from Other Supporting Documents. |
+| **Origin Registration Date (`tanggal_daftar_dok_asal`)** | `tanggalDaftarDokAsal` | Registration date of the origin document (`YYYY-MM-DD`). **Auto-filled** from Other Supporting Documents. |
+| **Origin Submission No. (`nomor_aju_dok_asal`)** | `nomorAjuDokAsal` | 26-digit Submission Number of the origin customs document. |
+| **Origin Goods Series (`seri_barang_dok_asal`)** | `seriBarangDokAsal` | Goods series number on the origin customs document (defaults to item series). |
 
   ![Export Goods Details](/assets/images/ceisa_expor_barang.png)
 
