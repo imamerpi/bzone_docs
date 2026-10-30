@@ -122,6 +122,7 @@ Once submitted, operators can track Customs status updates and generate official
         * **SPJM (Red Channel Notice)**: Notice scheduling physical cargo inspection by customs officers.
         * **Reject**: Rejection notification detailing data errors that require correction and resubmission.
     * **Chatter PDF Attachments & Inline Preview**: Official response PDFs returned by CEISA are automatically attached to the TPB document's **Chatter** (or the **Status & Respon** record) and rendered in the side-by-side attachment preview panel.
+    * **Registration Number Requirement (`Data tidak ditemukan`)**: Status & Response data can only be retrieved after the document **has been issued a Registration Number (*Nomor Pendaftaran*)** by Customs; otherwise, the message **`Data tidak ditemukan`** (*Data not found*) will appear.
 2. **Official BC Form Printouts (`Cetak Formulir Draft` & `Cetak Formulir Final`)**:
     * Click **Cetak Formulir Draft** or **Cetak Formulir Final** on the TPB document header to fetch the official BC declaration PDF from CEISA report endpoints and attach it directly to the document's Chatter.
 3. All response histories are stored and viewable via the **Status Respon** stat button.

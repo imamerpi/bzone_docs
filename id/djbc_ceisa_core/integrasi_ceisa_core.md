@@ -63,32 +63,35 @@ Untuk mengaktifkan koneksi ke portal Bea Cukai, administrator wajib mengisi para
 
 Modul `djbc_ceisa_core` menyediakan wizard sinkronisasi data referensi resmi langsung dari server Bea Cukai:
 
-### 1. Sinkronisasi Kurs Mingguan KMK (`ceisa.currency.rate`)
+### 1. Sinkronisasi Kurs Mingguan KMK
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Kurs**.
 * Menarik kurs valuta asing resmi Keputusan Menteri Keuangan (KMK) untuk perhitungan Nilai Dasar Penghitungan Bea Masuk (NDPBM).
 * Dapat dijalankan terjadwal (*automated cron*) setiap hari Rabu saat pembaruan kurs KMK mingguan dirilis.
 
-### 2. Sinkronisasi Pos Tarif & Bea Masuk (`ceisa.tarif`)
+### 2. Sinkronisasi Pos Tarif & Bea Masuk
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Tarif**.
 * Menarik tarif Bea Masuk (BM), PPN, PPnBM, dan PPh Pasal 22 untuk HS Code **8 digit** spesifik sesuai Buku Tarif Kepabeanan Indonesia (BTKI).
-* **Ketentuan HS Code**: Gunakan kode pos tarif **8 digit penuh** (level terendah BTKI/AHTN, bukan kode header 2/4/6 digit) karena API Tarif dan Lartas CEISA 4.0 hanya memvalidasi pembebanan pungutan pada pos tarif 8 digit.
+* **Ketentuan HS Code**: Gunakan kode pos tarif **8 digit penuh** (level terendah BTKI/AHTN, bukan kode header 2/4/6 digit) karena layanan Tarif dan Lartas CEISA 4.0 hanya memvalidasi pembebanan pungutan pada pos tarif 8 digit.
 
-### 3. Pengecekan Aturan Larangan & Pembatasan / Lartas (`ceisa.lartas`)
+### 3. Pengecekan Aturan Larangan & Pembatasan (Lartas)
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Lartas**.
 * Mengetahui izin instansi teknis (Kementerian Perdagangan, Karantina, BPOM, dsb.) yang dipersyaratkan sebelum barang impor/ekspor dimasukkan atau dikeluarkan berdasarkan HS Code 8 digit.
 
-### 4. Sinkronisasi Manifes TPS (`ceisa.manifes`)
+### 4. Sinkronisasi Manifes TPS
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Manifes**.
 * Menarik data inward/outward manifest (BC 1.1) dari Tempat Penimbunan Sementara (TPS) pelabuhan laut atau udara berdasarkan nomor pos dan subpos.
 
-### 5. Penarikan Status & Respon Mandiri (`ceisa.status.respon`)
+### 5. Penarikan Status & Respon Mandiri
 * Menu: **CEISA Connector > Layanan CEISA > Status & Respon**.
-* Klik tombol **Tarik Status & Respon BC** pada bagian atas daftar atau formulir **Status & Respon**, lalu masukkan **26 digit Nomor Aju** pada wizard (`ceisa.status.respon.wizard`).
-* Sistem otomatis menghubungi endpoint status CEISA OpenAPI dan mencatat:
-    * **Riwayat Status (`ceisa.status.history`)**: Urutan proses dokumen pabean beserta Nomor Daftar, Tanggal Daftar, Waktu Status, dan Kode Status terbaru.
-    * **Riwayat Respon (`ceisa.respon.history`)**: Daftar respon resmi (SPPB, NPP, SPJM, Reject, dll.) lengkap dengan timestamp `waktu_respon` (Datetime) dan pesan dari Bea Cukai.
-    * **Lampiran & Pratinjau PDF Otomatis di Chatter**: Jika respon CEISA menyertakan berkas PDF (baik berupa Base64 maupun path endpoint unduhan PDF), sistem otomatis mengunduh, memvalidasi, dan melampirkannya ke **Chatter** dokumen pabean terkait (TPB, Impor, Ekspor, atau FTZ) maupun record **Status & Respon** lengkap dengan panel pratinjau PDF (*inline attachment preview*) di samping formulir.
-    * **Sanitasi API Log**: Konten biner/Base64 PDF otomatis diringkas pada pencatatan `ir.api.log` agar ukuran database tetap optimal.
+* Klik tombol **Tarik Status & Respon BC** pada bagian atas daftar atau formulir **Status & Respon**, lalu masukkan **26 digit Nomor Aju** pada jendela yang muncul.
+* Sistem otomatis menghubungi server CEISA dan mencatat:
+    * **Riwayat Status**: Urutan proses dokumen pabean beserta Nomor Daftar, Tanggal Daftar, Waktu Status, dan Kode Status terbaru.
+    * **Riwayat Respon**: Daftar respon resmi (SPPB, NPP, SPJM, Reject, dll.) lengkap dengan tanggal dan waktu respon serta pesan dari Bea Cukai.
+    * **Lampiran & Pratinjau PDF Otomatis di Chatter**: Jika respon CEISA menyertakan berkas PDF, sistem otomatis mengunduh dan melampirkannya ke **Chatter** dokumen pabean terkait (TPB, Impor, Ekspor, atau FTZ) maupun record **Status & Respon** lengkap dengan panel pratinjau PDF di samping formulir.
+
+> [!IMPORTANT]
+> **Ketentuan Penarikan Status & Respon (`Data tidak ditemukan`):**
+> Data **Status & Respon** dari CEISA hanya dapat ditarik apabila dokumen pabean tersebut **sudah keluar Nomor Pendaftarannya (Nomor Daftar)** di portal Bea Cukai. Jika dokumen baru dikirim/berstatus draf dan **belum memiliki Nomor Pendaftaran**, maka saat ditarik akan muncul pesan **`Data tidak ditemukan`**. Hal ini normal dari sisi server CEISA—silakan lakukan penarikan kembali setelah dokumen memperoleh Nomor Pendaftaran.
 
 ---
 

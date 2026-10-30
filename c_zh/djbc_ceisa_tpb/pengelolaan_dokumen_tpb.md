@@ -122,6 +122,7 @@ CEISA 4.0 利用分层实体分配，由系统自动排序和排序：
         * **SPJM（红色通道通知）**：海关官员安排实物货物检查的通知。
         * **拒绝（Reject）**：拒绝通知，详细说明需要纠正和重新提交的数据错误。
     * **Chatter 自动附加响应 PDF 与内嵌预览**：CEISA 返回的官方响应 PDF 会自动附加到对应 TPB 单证（或 **状态与响应** 记录）的 **Chatter（消息栏）** 中，并在表单右侧预览面板直接展示。
+    * **登记号条件（`Data tidak ditemukan`）**：仅当单证在海关系统中**已生成登记号（Nomor Pendaftaran）**后才可拉取到状态与响应数据；若尚未生成登记号，将提示 **`Data tidak ditemukan`**（未找到数据）。
 2. **打印官方 BC 报关单（`Cetak Formulir Draft` 与 `Cetak Formulir Final`）**：
     * 点击 TPB 单证顶部的 **打印草稿表单（Cetak Formulir Draft）** 或 **打印正式表单（Cetak Formulir Final）**，即可从 CEISA 报表端点拉取官方 BC 报关单 PDF 并自动附加到单证 Chatter。
 3. 所有响应历史记录均可通过单证上的 **状态响应（Status Respon）** 统计按钮查看。

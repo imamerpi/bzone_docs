@@ -121,6 +121,7 @@ Setelah dokumen terkirim ke CEISA, sistem menyediakan fitur pemantauan status da
         * **SPJM (Surat Pemberitahuan Jalur Merah)**: Pemberitahuan pemeriksaan fisik oleh petugas pabean.
         * **Reject / Penolakan**: Dokumen dikembalikan karena kesalahan data dengan keterangan rincian perbaikan.
     * **Lampiran PDF Respon & Pratinjau Chatter**: Berkas PDF respon resmi dari CEISA otomatis dilampirkan ke **Chatter** dokumen TPB (atau record **Status & Respon**) dan dapat langsung dilihat pada panel pratinjau PDF di sisi kanan formulir.
+    * **Ketentuan Nomor Pendaftaran (`Data tidak ditemukan`)**: Data Status & Respon hanya dapat ditarik apabila dokumen tersebut **sudah keluar Nomor Pendaftarannya** di Bea Cukai. Jika belum keluar Nomor Pendaftaran, maka akan muncul pesan **`Data tidak ditemukan`**.
 2. **Cetak Formulir BC (`Cetak Formulir Draft` & `Cetak Formulir Final`)**:
     * Gunakan tombol **Cetak Formulir Draft** atau **Cetak Formulir Final** pada header dokumen TPB untuk mengunduh cetakan formulir BC resmi dari endpoint laporan CEISA dan melampirkannya secara otomatis ke Chatter dokumen.
 3. Seluruh riwayat dapat ditinjau melalui stat button **Status Respon** pada formulir dokumen.

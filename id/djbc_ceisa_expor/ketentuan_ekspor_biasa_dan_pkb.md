@@ -1,108 +1,102 @@
 # Ketentuan Ekspor Biasa vs Kesiapan Barang (PKB) & Jenis Pengangkutan
 
-Dokumen ini menjelaskan ketentuan kepabeanan dan aturan teknis pada modul **`djbc_ceisa_expor`** (BC 3.0 / PEB) terkait penanganan **Pemberitahuan Kesiapan Barang (PKB)** pada Ekspor Biasa serta referensi **Jenis Pengangkutan**.
+Dokumen ini menjelaskan ketentuan kepabeanan dan panduan pengisian dokumen **BC 3.0 (Pemberitahuan Ekspor Barang / PEB)** di B-Zone terkait penanganan **Pemberitahuan Kesiapan Barang (PKB)** pada Ekspor Biasa maupun Re-Ekspor, serta perbedaan **Cara Pengangkutan** dan **Jenis Pengangkutan**.
 
 ---
 
 ## 1. Regulasi & Konsep Kepabeanan (BC 3.0)
 
-Berdasarkan peraturan Direktorat Jenderal Bea dan Cukai (PER-09/BC/2021 dan PMK terkait tatalaksana ekspor):
+Berdasarkan peraturan Direktorat Jenderal Bea dan Cukai (PER-09/BC/2021 dan ketentuan tatalaksana ekspor):
 
 | Jenis Ekspor | Karakteristik Jalur | Kewajiban Kesiapan Barang (PKB) di Awal |
 |---|---|---|
-| **Ekspor Biasa (Kode 1)** | Default **Jalur Hijau** (langsung terbit NPE tanpa pemeriksaan fisik di tempat penimbunan eksportir). | **TIDAK PERLU**. Pengajuan PEB dikirim tanpa jadwal PKB. PKB baru relevan jika Bea Cukai menerbitkan respon **PPB** (Pemberitahuan Pemeriksaan Barang / Jalur Merah). |
-| **Re-Ekspor (Kode 5)** | Wajib pemeriksaan fisik pabean sebelum barang dimuat ke sarana pengangkut. | **WAJIB**. Eksportir wajib menyampaikan data PIC, lokasi barang siap periksa, dan tanggal PKB pada saat pengajuan dokumen. |
+| **Ekspor Biasa (Kode 1)** | Default **Jalur Hijau** (langsung terbit NPE tanpa pemeriksaan fisik di tempat penimbunan eksportir). | **TIDAK PERLU**. Pengajuan PEB dikirim tanpa jadwal PKB. PKB baru diperlukan apabila Bea Cukai menerbitkan respon **PPB** (Pemberitahuan Pemeriksaan Barang / Jalur Merah). |
+| **Re-Ekspor (Kode 5)** | Wajib pemeriksaan fisik pabean sebelum barang dimuat ke sarana pengangkut. | **WAJIB**. Eksportir wajib mengisi data PIC, lokasi barang siap periksa, dan jadwal pemeriksaan barang pada saat pengajuan dokumen. |
 | **Ekspor Fasilitas Khusus** | Menyesuaikan profil risiko dan skema fasilitas impor sementara/KITE. | Menyesuaikan penetapan pemeriksaan pabean. |
 
 > [!IMPORTANT]
-> **Prinsip Utama:** Pada dokumen BC 3.0, field header `tanggalPeriksa` adalah **elemen wajib (mandatory)** di JSON Schema CEISA 4.0 (jika tidak dikirim akan ditolak dengan error `CODE: 1028`). Field ini merekam tanggal rencana kesiapan/periksa (default tanggal pengajuan) dan **tidak memicu PKB**. Pemicu PKB/PPB diatur melalui profil risiko kepabeanan dan data detail kesiapan barang (`kesiapanBarang`). Pada **Ekspor Biasa**, child array `kesiapanBarang` cukup dikirim kosong `[]`.
+> **Prinsip Utama:** Pada dokumen BC 3.0, kolom **Tanggal Pemeriksaan** di bagian Header tetap wajib terisi (secara otomatis terisi tanggal pengajuan) karena merupakan kolom wajib dari portal CEISA 4.0. Pengisian tanggal di Header tersebut **tidak memicu pemeriksaan fisik (PKB)** selama Jenis Ekspor yang dipilih adalah **Ekspor Biasa** dan tab **Kesiapan Barang (PKB)** dikosongkan.
 
 ---
 
-## 2. Mekanisme & Logika Teknis di B-Zone
+## 2. Cara Kerja Otomatis di B-Zone
 
-Untuk memastikan dokumen pengajuan ekspor sesuai dengan skema CEISA 4.0 dan tidak menimbulkan antrean PKB yang tidak perlu, B-Zone menerapkan kontrol berikut:
+Untuk memastikan dokumen pengajuan ekspor sesuai dengan aturan CEISA 4.0 dan tidak menimbulkan antrean PKB yang tidak perlu, sistem B-Zone menerapkan pengaturan otomatis berikut:
 
-### A. Otomasi Deteksi Re-Ekspor (`is_re_ekspor`)
-Model `ceisa.export.document` memiliki compute field `is_re_ekspor`:
-* Bernilai `True` jika `kode_dokumen` adalah BC 3.0 (`30`) dan `kode_jenis_ekspor` bernilai kode `5` atau mengandung kata *re-ekspor* / *re-export*.
-* Bernilai `False` jika memilih **Ekspor Biasa (Kode 1)** atau jenis ekspor non-pemeriksaan lainnya.
+### A. Deteksi Otomatis Jenis Ekspor
 
-### B. Kontrol Tampilan Form (UI)
-* **Field Header `tanggal_periksa` (Tanggal Pemeriksaan):**
-  * Ditampilkan dan **wajib** untuk seluruh dokumen BC 3.0 (default otomatis tanggal hari ini) sesuai ketentuan skema mandatory CEISA 4.0.
-* **Field Header `kode_kantor_periksa` (Kantor Pemeriksaan):**
-  * Diisi sesuai kantor pabean yang mengawasi gudang/pabrik (misal `051000` KPPBC Cikarang).
-* **Field Header `kode_lokasi` (Lokasi Penimbunan/Pemuatan F.30):**
-  * Tetap **wajib** untuk semua BC 3.0 (mandatori dari skema CEISA 4.0), misal `6` = TPB / Kawasan Berikat.
+* **Ekspor Biasa (`1 - BIASA`):** Sistem secara otomatis mengenali bahwa dokumen tidak memerlukan pengajuan PKB di awal.
+* **Re-Ekspor (`5 - RE-EKSPOR`):** Sistem secara otomatis mengaktifkan alur wajib pengisian **Kesiapan Barang (PKB)**.
+
+### B. Panduan Pengisian Kolom pada Formulir BC 3.0
+
+* **Tanggal Pemeriksaan (Header):**
+    * Wajib terisi untuk seluruh dokumen BC 3.0 (otomatis terisi tanggal hari ini) agar pengajuan tidak ditolak oleh validasi portal CEISA 4.0.
+* **Kantor Pemeriksaan (Header):**
+    * Diisi sesuai Kantor Pabean yang mengawasi gudang atau pabrik (contoh: `051000` — KPPBC TMP Cikarang).
+* **Lokasi Penimbunan / Pemuatan — F.30 (Header):**
+    * Wajib diisi untuk seluruh dokumen BC 3.0 sesuai lokasi barang (contoh: `6` — TPB / Kawasan Berikat).
 * **Tab Kesiapan Barang (PKB):**
-  * Ditampilkan khusus jika `is_re_ekspor = True` atau jika memang memerlukan entry rincian kesiapan barang.
-  * Pada Ekspor Biasa, tab ini tidak perlu diisi dan child array `kesiapanBarang` tidak disertakan dalam payload agar tidak memicu PKB di CEISA.
+    * **Khusus Re-Ekspor:** Tab ini ditampilkan dan wajib dilengkapi (nama PIC, nomor telepon, alamat lokasi siap periksa, nomor kontainer, serta tanggal dan waktu kesiapan barang).
+    * **Untuk Ekspor Biasa:** Tab ini tidak perlu diisi. Sistem otomatis mengabaikan data PKB saat mengirim dokumen ke CEISA.
 
-### C. Serializer Payload API CEISA (`_prepare_ceisa_export_data`)
-Saat menyusun JSON untuk endpoint `POST /openapi/document`:
-```python
-# Field tanggalPeriksa wajib di header BC 3.0 (format YYYY-MM-DD)
-data['tanggalPeriksa'] = self.tanggal_periksa.strftime('%Y-%m-%d') if self.tanggal_periksa else ''
+### C. Perbedaan Pengiriman Data ke CEISA 4.0
 
-# Child kesiapanBarang HANYA disertakan jika Re-Ekspor (is_re_ekspor)
-if self.is_re_ekspor:
-    kesiapan = self.get_kesiapan_barang()
-    if kesiapan:
-        data['kesiapanBarang'] = kesiapan
-```
-Dengan format di atas:
-* **Ekspor Biasa:** `tanggalPeriksa` terkirim memenuhi skema mandatory CEISA 4.0, sedangkan child `kesiapanBarang` **tidak disertakan** sehingga CEISA tidak memicu form/antrean PKB kosong.
-* **Re-Ekspor:** `tanggalPeriksa` dan rincian `kesiapanBarang` (PIC, nomor telpon, lokasi siap periksa, kontainer, tanggal PKB, waktu siap periksa) terkirim lengkap sesuai skema JSON CEISA 4.0.
+Saat Anda menekan tombol **Kirim ke CEISA**, sistem secara otomatis menyesuaikan data yang dikirimkan:
+
+* **Pada Ekspor Biasa:**
+    * Kolom tanggal pemeriksaan di Header tetap dikirim untuk memenuhi syarat wajib CEISA 4.0.
+    * Data rincian **Kesiapan Barang (PKB) tidak disertakan**, sehingga dokumen tidak masuk ke antrean pemeriksaan fisik (PKB) dan dapat langsung memperoleh **NPE (Nota Pelayanan Ekspor)**.
+* **Pada Re-Ekspor:**
+    * Kolom tanggal pemeriksaan beserta seluruh rincian **Kesiapan Barang (PKB)** dikirimkan secara lengkap ke CEISA untuk penjadwalan pemeriksaan fisik oleh petugas Bea dan Cukai.
 
 ---
 
 ## 3. Referensi Pengangkutan: Cara Angkut vs Jenis Pengangkutan
 
-Pada formulir PEB BC 3.0 terdapat dua elemen pengangkutan yang berbeda fungsi:
+Pada formulir PEB BC 3.0 terdapat dua kolom pengangkutan dengan fungsi yang berbeda:
 
 ```mermaid
 graph LR
-    A["Dokumen Ekspor BC 3.0"] --> B["F.17: Cara Pengangkutan (kodeCaraAngkut)"]
-    A --> C["F.21: Jenis Pengangkutan (kodeJenisPengangkutan)"]
-    B --> D["ceisa.ref.angkut (Moda Transportasi)"]
-    C --> E["ceisa.ref.pengangkut (Metode Pengangkutan)"]
+    A["Dokumen Ekspor BC 3.0"] --> B["F.17: Cara Pengangkutan (Tab Pengangkut)"]
+    A --> C["F.21: Jenis Pengangkutan (Header Dokumen)"]
+    B --> D["Moda Transportasi Fisik (Laut, Udara, Darat, dll.)"]
+    C --> E["Skema Pengangkutan (Satu Sarana Angkut, Angkut Lanjut, dll.)"]
 ```
 
-### 1. Cara Pengangkutan (F.17 — `kodeCaraAngkut`)
-* Model Odoo: **`ceisa.ref.angkut`**
-* Terletak di tab child **Pengangkut** (`ceisa.export.pengangkut`).
-* Menyatakan moda transportasi fisik:
-  * `1` — LAUT
-  * `2` — KERETA API
-  * `3` — DARAT
-  * `4` — UDARA
-  * `5` — POS
-  * `6` — MULTIMODA
-  * `7` — INSTALASI / PIPA
-  * `8` — PERAIRAN
-  * `9` — LAINNYA
+### 1. Cara Pengangkutan (F.17)
 
-### 2. Jenis Pengangkutan (F.21 — `kodeJenisPengangkutan`)
-* Model Odoo: **`ceisa.ref.pengangkut`**
-* Terletak di **Header Dokumen Ekspor** (field `kode_jenis_pengangkutan`).
-* Menyatakan skema pengangkutan barang ekspor:
-  * `1` — SATU SARANA ANGKUT
-  * `2` — INSTALASI/PIPA/TRANSMISI
-  * `3` — ANGKUT LANJUT
-  * `4` — ANGKUT LANJUT MULTIMODA
-  * `5` — BARANG BAWAAN PENUMPANG / AWAK SARKUT
-  * `6` — SARANA ANGKUT LAINNYA
+* **Lokasi di Formulir:** Tab **Pengangkut**
+* **Fungsi:** Menyatakan moda transportasi fisik yang digunakan untuk mengangkut barang ekspor:
+    * `1` — LAUT
+    * `2` — KERETA API
+    * `3` — DARAT
+    * `4` — UDARA
+    * `5` — POS
+    * `6` — MULTIMODA
+    * `7` — INSTALASI / PIPA
+    * `8` — PERAIRAN
+    * `9` — LAINNYA
+
+### 2. Jenis Pengangkutan (F.21)
+
+* **Lokasi di Formulir:** Bagian **Header Dokumen Ekspor**
+* **Fungsi:** Menyatakan skema atau metode pengangkutan barang ekspor:
+    * `1` — SATU SARANA ANGKUT
+    * `2` — INSTALASI / PIPA / TRANSMISI
+    * `3` — ANGKUT LANJUT
+    * `4` — ANGKUT LANJUT MULTIMODA
+    * `5` — BARANG BAWAAN PENUMPANG / AWAK SARANA PENGANGKUT
+    * `6` — SARANA ANGKUT LAINNYA
 
 ---
 
-## 4. Panduan Operasional & Troubleshooting
+## 4. Ringkasan Panduan Operasional (Agar Ekspor Biasa Langsung Terbit NPE)
 
-### Mengapa Dokumen Ekspor Biasa Berhasil Terbit NPE (Jalur Hijau)?
+Agar dokumen ekspor normal (Kawasan Berikat maupun Umum) langsung masuk **Jalur Hijau** dan menerbitkan **NPE** tanpa tertahan di proses PKB, pastikan langkah berikut:
 
-Berdasarkan audit data riil CEISA (`BC_30.xlsx`), dokumen ekspor normal Kawasan Berikat:
-1. **Header `tanggalPeriksa` tetap ada & terisi** (disamakan dengan tanggal aju / hari ini).
-2. **Header `kodeKantorPeriksa` terisi** kantor pabean pengawas pabrik (misal `051000`).
-3. **Child `kesiapanBarang` tidak disertakan** (dikeluarkan dari payload JSON agar CEISA tidak menganggap ada permohonan PKB).
-4. **Jenis Ekspor**: Dipilih **`1 - EKSPOR BIASA`** (bukan `2 - BERKALA` atau `5 - RE-EKSPOR`).
-5. **Hasil CEISA**: Dokumen langsung memperoleh **Respon 3015 (Nota Pelayanan Ekspor / NPE)** tanpa melalui proses PKB.
+1. **Jenis Ekspor:** Pilih **`1 - EKSPOR BIASA`** (bukan `2 - BERKALA` atau `5 - RE-EKSPOR`).
+2. **Tanggal Pemeriksaan (Header):** Biarkan tetap terisi sesuai tanggal pengajuan / hari ini.
+3. **Kantor Pemeriksaan (Header):** Pastikan terisi kode Kantor Pabean pengawas pabrik/gudang (misal `051000`).
+4. **Tab Kesiapan Barang (PKB):** Kosongkan (tidak perlu diisi pada Ekspor Biasa).
+5. **Hasil di CEISA:** Dokumen akan langsung mendapatkan **Respon 3015 (Nota Pelayanan Ekspor / NPE)** tanpa melalui antrean pemeriksaan fisik (PKB).

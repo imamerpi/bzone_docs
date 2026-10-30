@@ -63,32 +63,35 @@ To enable communication with the Customs OpenAPI, administrators must set connec
 
 `djbc_ceisa_core` includes automated wizards to fetch official master data directly from Customs servers:
 
-### 1. Weekly Customs Exchange Rates (`ceisa.currency.rate`)
+### 1. Weekly Customs Exchange Rates
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Kurs**.
 * Pulls weekly Ministry of Finance Decree (KMK) exchange rates for calculating Customs Value (NDPBM).
 * Can be scheduled as an automated cron job every Wednesday when new rates take effect.
 
-### 2. HS Codes & Duty Tariffs (`ceisa.tarif`)
+### 2. HS Codes & Duty Tariffs
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Tarif**.
 * Fetches import duty rates, VAT, Luxury Goods Sales Tax, and Article 22 Income Tax for specific **8-digit** HS codes from the Indonesian Customs Tariff Book (BTKI).
-* **HS Code Rule**: Always use the full **8-digit** national tariff code (lowest-level BTKI/AHTN code, not 2/4/6-digit category headers), as CEISA 4.0 Tariff and Lartas APIs only validate duties and restrictions at the 8-digit level.
+* **HS Code Rule**: Always use the full **8-digit** national tariff code (lowest-level BTKI/AHTN code, not 2/4/6-digit category headers), as CEISA 4.0 Tariff and Lartas services only validate duties and restrictions at the 8-digit level.
 
-### 3. Trade Restrictions & Prohibitions / Lartas (`ceisa.lartas`)
+### 3. Trade Restrictions & Prohibitions (Lartas)
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Lartas**.
 * Checks regulatory requirements (Ministry of Trade, Quarantine, BPOM permits) applicable prior to clearance based on the 8-digit HS code.
 
-### 4. Manifest Integration (`ceisa.manifes`)
+### 4. Manifest Integration
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Manifes**.
 * Retrieves cargo manifest (BC 1.1) records from Temporary Storage Facilities (TPS) at air and sea ports by manifest bill and sub-bill numbers.
 
-### 5. Standalone Status & Response Inquiry (`ceisa.status.respon`)
+### 5. Standalone Status & Response Inquiry
 * Menu: **CEISA Connector > Layanan CEISA > Status & Respon**.
-* Click **Tarik Status & Respon BC** from the list or form header of **Status & Respon**, and enter the **26-digit Submission Number (Nomor Aju)** in the wizard (`ceisa.status.respon.wizard`).
-* The system queries the CEISA OpenAPI status endpoints and records:
-    * **Status History (`ceisa.status.history`)**: Chronological customs processing statuses, Registration Number (`nomorDaftar`), Registration Date, and latest status badge.
-    * **Response History (`ceisa.respon.history`)**: Official customs responses (SPPB, NPP, SPJM, Reject, etc.) with accurate `waktu_respon` (Datetime) timestamps and messages.
-    * **Automated Chatter PDF Attachment & Inline Preview**: Whenever a CEISA response includes a PDF payload (either inline Base64 or a relative PDF download path), the system validates and attaches the PDF directly to the matched customs document's **Chatter** (TPB, Import, Export, or FTZ) or the **Status & Respon** record, with built-in side-by-side PDF preview (`o_attachment_preview`).
-    * **API Log Sanitization**: Base64 PDF payloads are automatically stripped/summarized in `ir.api.log` to prevent database bloat.
+* Click **Tarik Status & Respon BC** from the list or form header of **Status & Respon**, and enter the **26-digit Submission Number (Nomor Aju)**.
+* The system queries the CEISA server and records:
+    * **Status History**: Chronological customs processing statuses, Registration Number, Registration Date, and latest status badge.
+    * **Response History**: Official customs responses (SPPB, NPP, SPJM, Reject, etc.) with accurate response timestamps and messages.
+    * **Automated Chatter PDF Attachment & Inline Preview**: Whenever a CEISA response includes a PDF file, the system downloads and attaches the PDF directly to the matched customs document's **Chatter** (TPB, Import, Export, or FTZ) or the **Status & Respon** record, with built-in side-by-side PDF preview.
+
+> [!IMPORTANT]
+> **Status & Response Availability (`Data tidak ditemukan`):**
+> **Status & Response** data can only be retrieved for customs documents that **have already been issued a Registration Number (*Nomor Pendaftaran* / *Nomor Daftar*)** by Customs. If a document has not yet received a Registration Number, CEISA will return the message **`Data tidak ditemukan`** (*Data not found*). Please retry pulling the status after the Registration Number has been issued.
 
 ---
 
