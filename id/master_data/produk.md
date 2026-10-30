@@ -106,9 +106,23 @@ Ada beberapa opsi untuk menentukan barang tersebut akan dilaporkan kemana, yaitu
 ![Pengaturan Parameter DJBC](../assets/images/master_produk_djbc.png)
 *Gambar 1.6: Konfigurasi klasifikasi DJBC dan HS Code pada formulir produk.*
 
-3. **HS Code**: Masukkan 8 digit kode *Harmonized System* resmi untuk keperluan penetapan pos tarif pabean dan validasi integrasi CEISA.
+3. **HS Code**: Masukkan **8 digit** kode *Harmonized System* (Pos Tarif Nasional sesuai BTKI 2022) untuk keperluan penetapan pos tarif pabean dan validasi integrasi CEISA.
 4. **Origin of Goods**: Tentukan negara asal barang (*Country of Origin*) untuk dokumen deklarasi pabean impor/ekspor.
 5. Klik ikon **Simpan** (*Save*) pada pojok kiri atas untuk menyimpan master produk.
 
+### Ketentuan Struktur Digit HS Code (BTKI vs Operasional CEISA)
+
+Secara regulasi kepabeanan dalam **Buku Tarif Kepabeanan Indonesia (BTKI)**, penomoran HS Code disusun secara berjenjang:
+* **2 Digit (Bab / *Chapter*)**: Kategori umum komoditas (misal: `09` — Kopi, teh, mate, dan rempah-rempah).
+* **4 Digit (Pos / *Heading*)**: Pengelompokan pos dalam bab (misal: `0901` — Kopi, digongseng atau dihilangkan kafeinnya maupun tidak).
+* **6 Digit (Subpos / *Subheading* WCO)**: Klasifikasi standar internasional WCO (misal: `0901.11` — Kopi, tidak digongseng, tidak dihilangkan kafeinnya).
+* **8 Digit (Pos Tarif Nasional / AHTN)**: Pos tarif spesifik ASEAN/Nasional (misal: `0901.11.20` — Arabika WIB atau Robusta OIB).
+
+> [!WARNING]
+> **Ketentuan Pengisian di BZone:**
+> Meskipun BTKI memiliki hierarki 2, 4, dan 6 digit sebagai *header* kelompok barang, pada master **HS Code (`product.hscode`)** dan **Master Produk** di BZone **hanya kode level terendah (8 digit penuh tanpa titik/spasi, contoh: `09011120`) yang wajib didaftarkan dan dipilih**.
+> * Endpoint API CEISA 4.0 (Sinkronisasi Tarif, Lartas, maupun pengiriman dokumen BC) hanya menerima kode **8 digit** karena pembebanan tarif (BM, PPN, PPh) dan aturan Lartas melekat pada level 8 digit.
+> * Kode 2, 4, dan 6 digit berfungsi sebagai judul kelompok pada buku tarif dan **tidak boleh** dipasangkan ke produk operasional agar tidak terjadi penolakan (*reject*) saat penarikan tarif atau pengiriman dokumen ke portal CEISA.
+
 > [!IMPORTANT]
-> Konsistensi pengisian **HS Code** dan **DJBC Classification** sangat menentukan validitas data pada saat pengiriman dokumen ke portal CEISA 4.0 serta pelaporan 7 Laporan Mutasi IT Inventory.
+> Konsistensi pengisian **HS Code (8 Digit)** dan **DJBC Classification** sangat menentukan validitas data pada saat pengiriman dokumen ke portal CEISA 4.0 serta pelaporan 7 Laporan Mutasi IT Inventory.

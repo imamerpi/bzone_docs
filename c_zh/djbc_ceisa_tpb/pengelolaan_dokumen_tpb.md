@@ -109,17 +109,21 @@ CEISA 4.0 利用分层实体分配，由系统自动排序和排序：
 
 ---
 
-## 海关响应与状态查询
+## 海关响应、状态查询与报关单打印
 
-提交后，操作员可以使用 **检查状态与响应（Cek Status & Respon）** 操作查询海关状态更新：
+提交后，操作员可直接从 TPB 报关单或 **状态与响应（Status & Respon）** 菜单查询海关状态更新并获取官方报关单打印件：
 
-* 单击 **检查状态与响应（Cek Status & Respon）**：BZone 查询 CEISA API 中匹配特定 26 位申请号的更新。
-* 收到的海关响应：
-    * **SPPB（放行许可）**：允许货物从港口或设施正式放行的正式授权。
-    * **NPP（登记号）**：确认申报已通过自动化模式审查并收到官方海关登记号。
-    * **SPJM（红色通道通知）**：海关官员安排实物货物检查的通知。
-    * **拒绝（Reject）**：拒绝通知，详细说明需要纠正和重新提交的数据错误。
-* 所有响应历史记录都存储和通过 **状态响应（Status Respon）** 统计按钮查看。
+1. **状态与响应查询（`Cek Status & Respon` / `Tarik Status & Respon BC`）**：
+    * 可直接点击 TPB 单证上的 **检查状态与响应（Cek Status & Respon）**，或通过 **CEISA 连接器 > CEISA 服务 > 状态与响应（CEISA Connector > Layanan CEISA > Status & Respon）** 点击 **拉取海关状态与响应（Tarik Status & Respon BC）** 并输入 26 位申请号（*Nomor Aju*）。
+    * 自动记录至 **状态历史** 与 **响应历史** 的海关响应包括：
+        * **SPPB（放行许可）**：允许货物从港口或设施正式放行的正式授权。
+        * **NPP（登记号）**：确认申报已通过自动化模式审查并收到官方海关登记号。
+        * **SPJM（红色通道通知）**：海关官员安排实物货物检查的通知。
+        * **拒绝（Reject）**：拒绝通知，详细说明需要纠正和重新提交的数据错误。
+    * **Chatter 自动附加响应 PDF 与内嵌预览**：CEISA 返回的官方响应 PDF 会自动附加到对应 TPB 单证（或 **状态与响应** 记录）的 **Chatter（消息栏）** 中，并在表单右侧预览面板直接展示。
+2. **打印官方 BC 报关单（`Cetak Formulir Draft` 与 `Cetak Formulir Final`）**：
+    * 点击 TPB 单证顶部的 **打印草稿表单（Cetak Formulir Draft）** 或 **打印正式表单（Cetak Formulir Final）**，即可从 CEISA 报表端点拉取官方 BC 报关单 PDF 并自动附加到单证 Chatter。
+3. 所有响应历史记录均可通过单证上的 **状态响应（Status Respon）** 统计按钮查看。
 
 ---
 

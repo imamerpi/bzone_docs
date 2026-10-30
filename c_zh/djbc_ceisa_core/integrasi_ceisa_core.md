@@ -70,15 +70,25 @@ graph TD
 
 ### 2. HS 编码与关税（`ceisa.tarif`）
 * 菜单：**CEISA 连接器 > CEISA 服务 > 同步关税（CEISA Connector > Layanan CEISA > Sinkronisasi Tarif）**。
-* 从印度尼西亚海关税则（BTKI）中获取 8 位或 10 位 HS 编码的进口关税率、增值税、奢侈品销售税和第 22 条所得税。
+* 从印度尼西亚海关税则（BTKI）中获取特定 **8 位** HS 编码的进口关税率、增值税、奢侈品销售税和第 22 条所得税。
+* **HS 编码规范**：必须使用完整的 **8 位**国家税则号（BTKI/AHTN 最末级编码，而非 2/4/6 位分类标题），因为 CEISA 4.0 关税与 Lartas 接口仅在 8 位编码层级验证税率与监管要求。
 
 ### 3. 贸易限制与禁令 / Lartas（`ceisa.lartas`）
 * 菜单：**CEISA 连接器 > CEISA 服务 > 同步 Lartas（CEISA Connector > Layanan CEISA > Sinkronisasi Lartas）**。
-* 检查清关前适用的法规要求（贸易部、检疫局、BPOM 许可证）。
+* 根据 8 位 HS 编码检查清关前适用的法规要求（贸易部、检疫局、BPOM 许可证）。
 
 ### 4. 舱单集成（`ceisa.manifes`）
 * 菜单：**CEISA 连接器 > CEISA 服务 > 同步舱单（CEISA Connector > Layanan CEISA > Sinkronisasi Manifes）**。
 * 通过舱单提单和分提单编号从航空港和海港的临时存储设施（TPS）检索货物舱单（BC 1.1）记录。
+
+### 5. 状态与响应独立查询（`ceisa.status.respon`）
+* 菜单：**CEISA 连接器 > CEISA 服务 > 状态与响应（CEISA Connector > Layanan CEISA > Status & Respon）**。
+* 在 **状态与响应（Status & Respon）** 列表或表单顶部点击 **拉取海关状态与响应（Tarik Status & Respon BC）** 按钮，在弹窗向导（`ceisa.status.respon.wizard`）中输入 **26 位申请号（Nomor Aju）**。
+* 系统自动调用 CEISA OpenAPI 状态端点并记录：
+    * **状态历史（`ceisa.status.history`）**：海关单证处理状态序列、登记号（`nomorDaftar`）、登记日期、状态时间及最新状态徽章。
+    * **响应历史（`ceisa.respon.history`）**：官方海关响应（SPPB、NPP、SPJM、驳回 Reject 等），包含精确到秒的 `waktu_respon`（Datetime）时间戳与海关提示信息。
+    * **Chatter 自动附加 PDF 与内嵌预览**：当 CEISA 响应包含 PDF 文件（Base64 内容或 PDF 下载路径）时，系统自动下载、校验并将其附加到对应报关单证（TPB、进口、出口或 FTZ）或 **状态与响应** 记录的 **Chatter（消息栏）** 中，并支持表单侧边内嵌 PDF 预览（`o_attachment_preview`）。
+    * **API 日志脱敏压缩**：在写入 `ir.api.log` 时自动清理/摘要 Base64 PDF 数据，防止数据库日志体积膨胀。
 
 ---
 
@@ -86,9 +96,9 @@ graph TD
 
 在处理海关申报之前对齐内部 Odoo 主数据：
 
-1. **产品 HS 编码**：
-    * 进入 **库存 > 产品 > 产品（Inventory > Products > Products）**。
-    * 在 **CEISA** 选项卡上，分配正确的 **税则 / HS 编码（Pos Tarif / HS Code）** 和标准 CEISA 计量单位。
+1. **产品 HS 编码（8 位数字）**：
+    * 进入 **库存 > 产品 > 产品（Inventory > Products > Products）**（或 **HS 编码** 主数据）。
+    * 在 **CEISA / DJBC 信息** 选项卡上，分配正确的 **8 位税则 / HS 编码（Pos Tarif / HS Code）**（无需录入 2、4 或 6 位上级标题）和标准 CEISA 计量单位。
 2. **海关合作伙伴配置文件**：
     * 进入 **联系人（Contacts）**。
     * 在 **CEISA** 选项卡上，指定合作伙伴的 **16 位 NPWP**、**NIB（商业识别号）** 和相关实体角色。

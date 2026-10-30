@@ -70,15 +70,25 @@ To enable communication with the Customs OpenAPI, administrators must set connec
 
 ### 2. HS Codes & Duty Tariffs (`ceisa.tarif`)
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Tarif**.
-* Fetches import duty rates, VAT, Luxury Goods Sales Tax, and Article 22 Income Tax for specific 8-digit or 10-digit HS codes from the Indonesian Customs Tariff Book (BTKI).
+* Fetches import duty rates, VAT, Luxury Goods Sales Tax, and Article 22 Income Tax for specific **8-digit** HS codes from the Indonesian Customs Tariff Book (BTKI).
+* **HS Code Rule**: Always use the full **8-digit** national tariff code (lowest-level BTKI/AHTN code, not 2/4/6-digit category headers), as CEISA 4.0 Tariff and Lartas APIs only validate duties and restrictions at the 8-digit level.
 
 ### 3. Trade Restrictions & Prohibitions / Lartas (`ceisa.lartas`)
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Lartas**.
-* Checks regulatory requirements (Ministry of Trade, Quarantine, BPOM permits) applicable prior to clearance.
+* Checks regulatory requirements (Ministry of Trade, Quarantine, BPOM permits) applicable prior to clearance based on the 8-digit HS code.
 
 ### 4. Manifest Integration (`ceisa.manifes`)
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Manifes**.
 * Retrieves cargo manifest (BC 1.1) records from Temporary Storage Facilities (TPS) at air and sea ports by manifest bill and sub-bill numbers.
+
+### 5. Standalone Status & Response Inquiry (`ceisa.status.respon`)
+* Menu: **CEISA Connector > Layanan CEISA > Status & Respon**.
+* Click **Tarik Status & Respon BC** from the list or form header of **Status & Respon**, and enter the **26-digit Submission Number (Nomor Aju)** in the wizard (`ceisa.status.respon.wizard`).
+* The system queries the CEISA OpenAPI status endpoints and records:
+    * **Status History (`ceisa.status.history`)**: Chronological customs processing statuses, Registration Number (`nomorDaftar`), Registration Date, and latest status badge.
+    * **Response History (`ceisa.respon.history`)**: Official customs responses (SPPB, NPP, SPJM, Reject, etc.) with accurate `waktu_respon` (Datetime) timestamps and messages.
+    * **Automated Chatter PDF Attachment & Inline Preview**: Whenever a CEISA response includes a PDF payload (either inline Base64 or a relative PDF download path), the system validates and attaches the PDF directly to the matched customs document's **Chatter** (TPB, Import, Export, or FTZ) or the **Status & Respon** record, with built-in side-by-side PDF preview (`o_attachment_preview`).
+    * **API Log Sanitization**: Base64 PDF payloads are automatically stripped/summarized in `ir.api.log` to prevent database bloat.
 
 ---
 
@@ -86,9 +96,9 @@ To enable communication with the Customs OpenAPI, administrators must set connec
 
 Align internal Odoo master data prior to processing customs declarations:
 
-1. **Product HS Codes**:
-    * Navigate to **Inventory > Products > Products**.
-    * On the **CEISA** tab, assign the correct **Pos Tarif / HS Code** and standard CEISA UoM.
+1. **Product HS Codes (8 Digits)**:
+    * Navigate to **Inventory > Products > Products** (or the **HS Code** master).
+    * On the **CEISA / DJBC Information** tab, assign the correct **8-digit Pos Tarif / HS Code** (without 2-, 4-, or 6-digit parent headers) and standard CEISA UoM.
 2. **Customs Partner Profiles**:
     * Navigate to **Contacts**.
     * On the **CEISA** tab, specify the partner's **16-digit NPWP**, **NIB (Business Identification Number)**, and relevant entity roles.

@@ -70,15 +70,25 @@ Modul `djbc_ceisa_core` menyediakan wizard sinkronisasi data referensi resmi lan
 
 ### 2. Sinkronisasi Pos Tarif & Bea Masuk (`ceisa.tarif`)
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Tarif**.
-* Menarik tarif Bea Masuk (BM), PPN, PPnBM, dan PPh Pasal 22 untuk HS Code 8 digit atau 10 digit spesifik dari Buku Tarif Kepabeanan Indonesia (BTKI).
+* Menarik tarif Bea Masuk (BM), PPN, PPnBM, dan PPh Pasal 22 untuk HS Code **8 digit** spesifik sesuai Buku Tarif Kepabeanan Indonesia (BTKI).
+* **Ketentuan HS Code**: Gunakan kode pos tarif **8 digit penuh** (level terendah BTKI/AHTN, bukan kode header 2/4/6 digit) karena API Tarif dan Lartas CEISA 4.0 hanya memvalidasi pembebanan pungutan pada pos tarif 8 digit.
 
 ### 3. Pengecekan Aturan Larangan & Pembatasan / Lartas (`ceisa.lartas`)
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Lartas**.
-* Mengetahui izin instansi teknis (Kementerian Perdagangan, Karantina, BPOM, dsb.) yang dipersyaratkan sebelum barang impor/ekspor dimasukkan atau dikeluarkan.
+* Mengetahui izin instansi teknis (Kementerian Perdagangan, Karantina, BPOM, dsb.) yang dipersyaratkan sebelum barang impor/ekspor dimasukkan atau dikeluarkan berdasarkan HS Code 8 digit.
 
 ### 4. Sinkronisasi Manifes TPS (`ceisa.manifes`)
 * Menu: **CEISA Connector > Layanan CEISA > Sinkronisasi Manifes**.
 * Menarik data inward/outward manifest (BC 1.1) dari Tempat Penimbunan Sementara (TPS) pelabuhan laut atau udara berdasarkan nomor pos dan subpos.
+
+### 5. Penarikan Status & Respon Mandiri (`ceisa.status.respon`)
+* Menu: **CEISA Connector > Layanan CEISA > Status & Respon**.
+* Klik tombol **Tarik Status & Respon BC** pada bagian atas daftar atau formulir **Status & Respon**, lalu masukkan **26 digit Nomor Aju** pada wizard (`ceisa.status.respon.wizard`).
+* Sistem otomatis menghubungi endpoint status CEISA OpenAPI dan mencatat:
+    * **Riwayat Status (`ceisa.status.history`)**: Urutan proses dokumen pabean beserta Nomor Daftar, Tanggal Daftar, Waktu Status, dan Kode Status terbaru.
+    * **Riwayat Respon (`ceisa.respon.history`)**: Daftar respon resmi (SPPB, NPP, SPJM, Reject, dll.) lengkap dengan timestamp `waktu_respon` (Datetime) dan pesan dari Bea Cukai.
+    * **Lampiran & Pratinjau PDF Otomatis di Chatter**: Jika respon CEISA menyertakan berkas PDF (baik berupa Base64 maupun path endpoint unduhan PDF), sistem otomatis mengunduh, memvalidasi, dan melampirkannya ke **Chatter** dokumen pabean terkait (TPB, Impor, Ekspor, atau FTZ) maupun record **Status & Respon** lengkap dengan panel pratinjau PDF (*inline attachment preview*) di samping formulir.
+    * **Sanitasi API Log**: Konten biner/Base64 PDF otomatis diringkas pada pencatatan `ir.api.log` agar ukuran database tetap optimal.
 
 ---
 
@@ -86,9 +96,9 @@ Modul `djbc_ceisa_core` menyediakan wizard sinkronisasi data referensi resmi lan
 
 Sebelum membuat dokumen pabean, pastikan master data internal Odoo telah dipetakan:
 
-1. **Kode Pos Tarif Produk (HS Code)**:
-    * Buka menu **Inventory > Products > Products**.
-    * Pada tab **CEISA**, tentukan **Pos Tarif / HS Code** produk dan satuan CEISA standar.
+1. **Kode Pos Tarif Produk (HS Code - 8 Digit)**:
+    * Buka menu **Inventory > Products > Products** (atau master **HS Code**).
+    * Pada tab **CEISA / DJBC Information**, tentukan **Pos Tarif / HS Code** produk (wajib **8 digit** pos tarif nasional sesuai BTKI, tanpa memasukkan hierarki *parent* 2, 4, atau 6 digit) beserta satuan CEISA standar.
 2. **Identitas Mitra Bisnis (Partner Kepabeanan)**:
     * Buka master kontak pelanggan atau vendor (**Contacts**).
     * Pada tab **CEISA**, lengkapi **NPWP (16 digit)**, **NIB (Nomor Induk Berusaha)**, dan **Kode Entitas** pabean yang relevan.

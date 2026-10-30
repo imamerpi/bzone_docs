@@ -77,9 +77,23 @@ For companies operating under customs facility schemes (Bonded Zone / KB, KITE, 
 
 1. Go to the **DJBC Information** tab.
 2. **DJBC Raw Material**: Check this option if the item is classified as raw/auxiliary material subject to mandatory reporting in the IT Inventory Raw Material Mutation Report.
-3. **HS Code**: Enter the 8-digit international Harmonized System code for tariff rate determination and CEISA integration.
+3. **HS Code**: Enter the **8-digit** *Harmonized System* code (National Tariff Line under BTKI 2022) for customs tariff determination and CEISA integration validation.
 4. **Origin of Goods**: Specify the Country of Origin for import/export customs declarations.
 5. Click **Save** in the top left corner.
 
+### HS Code Digit Structure Rules (BTKI vs. CEISA Operations)
+
+Under the **Indonesian Customs Tariff Book (BTKI)**, HS Codes are structured hierarchically:
+* **2 Digits (Chapter / *Bab*)**: Broad commodity category (e.g., `09` — Coffee, tea, maté and spices).
+* **4 Digits (Heading / *Pos*)**: Grouping within a chapter (e.g., `0901` — Coffee, whether or not roasted or decaffeinated).
+* **6 Digits (WCO Subheading / *Subpos*)**: International WCO standard classification (e.g., `0901.11` — Coffee, not roasted, not decaffeinated).
+* **8 Digits (National Tariff Line / AHTN)**: Specific ASEAN/National tariff line (e.g., `0901.11.20` — Arabica WIB or Robusta OIB).
+
+> [!WARNING]
+> **BZone Entry Policy:**
+> Although BTKI defines 2-, 4-, and 6-digit headers, in BZone's **HS Code (`product.hscode`)** master and **Product Master**, **only the lowest-level 8-digit code (entered without dots or spaces, e.g., `09011120`) must be registered and assigned**.
+> * CEISA 4.0 API endpoints (Tariff Sync, Lartas Check, and Customs Document submission) only accept **8-digit** codes because duty rates (BM, VAT, Income Tax) and Lartas regulations apply strictly at the 8-digit level.
+> * Do **not** assign 2-, 4-, or 6-digit group headers to operational products to prevent API validation errors or document rejections on the CEISA portal.
+
 > [!IMPORTANT]
-> Consistent and accurate setup of **HS Code** and **DJBC Classification** is essential for document submission to CEISA 4.0 and the 7 Mandatory IT Inventory Reports.
+> Consistent and accurate setup of **HS Code (8 Digits)** and **DJBC Classification** is essential for document submission to CEISA 4.0 and the 7 Mandatory IT Inventory Reports.

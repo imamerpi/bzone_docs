@@ -109,17 +109,21 @@ Processing declarations through Customs involves 3 stages:
 
 ---
 
-## Customs Responses & Status Inquiries
+## Customs Responses, Status Inquiries & Form Printing
 
-Once submitted, operators can query Customs status updates using the **Cek Status & Respon** action:
+Once submitted, operators can track Customs status updates and generate official form printouts directly from the TPB declaration or the **Status & Respon** menu:
 
-* Click **Cek Status & Respon**: BZone queries the CEISA API for updates matching the specific 26-digit Submission Number.
-* Received customs responses:
-    * **SPPB (Release Permit)**: Formal authorization allowing cargo release from port or facility.
-    * **NPP (Registration Number)**: Confirmation that the declaration has cleared automated schema review and received an official customs registry number.
-    * **SPJM (Red Channel Notice)**: Notice scheduling physical cargo inspection by customs officers.
-    * **Reject**: Rejection notification detailing data errors that require correction and resubmission.
-* All response histories are stored and viewable via the **Status Respon** stat button.
+1. **Status & Response Inquiry (`Cek Status & Respon` / `Tarik Status & Respon BC`)**:
+    * Trigger directly via **Cek Status & Respon** on the TPB document form, or from **CEISA Connector > Layanan CEISA > Status & Respon** by clicking **Tarik Status & Respon BC** and entering the 26-digit Submission Number (*Nomor Aju*).
+    * Official responses recorded under **Status History** and **Response History**:
+        * **SPPB (Release Permit)**: Formal authorization allowing cargo release from port or facility.
+        * **NPP (Registration Number)**: Confirmation that the declaration has cleared automated schema review and received an official customs registry number.
+        * **SPJM (Red Channel Notice)**: Notice scheduling physical cargo inspection by customs officers.
+        * **Reject**: Rejection notification detailing data errors that require correction and resubmission.
+    * **Chatter PDF Attachments & Inline Preview**: Official response PDFs returned by CEISA are automatically attached to the TPB document's **Chatter** (or the **Status & Respon** record) and rendered in the side-by-side attachment preview panel.
+2. **Official BC Form Printouts (`Cetak Formulir Draft` & `Cetak Formulir Final`)**:
+    * Click **Cetak Formulir Draft** or **Cetak Formulir Final** on the TPB document header to fetch the official BC declaration PDF from CEISA report endpoints and attach it directly to the document's Chatter.
+3. All response histories are stored and viewable via the **Status Respon** stat button.
 
 ---
 

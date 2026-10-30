@@ -107,17 +107,21 @@ Proses pengajuan dokumen ke Bea Cukai melewati 3 tahapan utama:
 
 ---
 
-## Pemeriksaan Respon & Status Kepabeanan
+## Pemeriksaan Respon, Status & Cetak Formulir Kepabeanan
 
-Setelah dokumen terkirim ke CEISA, sistem menyediakan tombol **Cek Status & Respon** untuk menarik perkembangan respon pabean:
+Setelah dokumen terkirim ke CEISA, sistem menyediakan fitur pemantauan status dan pencetakan formulir langsung dari dokumen TPB maupun menu **Status & Respon**:
 
-* Klik **Cek Status & Respon**: BZone akan menghubungi API CEISA untuk memeriksa status terkini dari Nomor Aju yang bersangkutan.
-* Respon resmi yang otomatis disimpan:
-    * **SPPB (Surat Persetujuan Pengeluaran Barang)**: Izin resmi pengeluaran barang dari pelabuhan atau kawasan.
-    * **NPP (Nomor Pendaftaran Pabean)**: Bukti bahwa dokumen telah lolos validasi sistem dan mendapatkan Nomor Pendaftaran resmi.
-    * **SPJM (Surat Pemberitahuan Jalur Merah)**: Pemberitahuan pemeriksaan fisik oleh petugas pabean.
-    * **Reject / Penolakan**: Dokumen dikembalikan karena kesalahan data dengan keterangan rincian perbaikan.
-* Seluruh respon dapat ditinjau melalui stat button **Status Respon** pada formulir dokumen.
+1. **Tarik Status & Respon (`Cek Status & Respon` / `Tarik Status & Respon BC`)**:
+    * Dapat dijalankan langsung dari tombol **Cek Status & Respon** pada dokumen TPB, atau melalui menu **CEISA Connector > Layanan CEISA > Status & Respon** menggunakan tombol **Tarik Status & Respon BC** dengan memasukkan 26 digit Nomor Aju.
+    * Respon resmi yang otomatis disimpan ke **Riwayat Status** dan **Riwayat Respon**:
+        * **SPPB (Surat Persetujuan Pengeluaran Barang)**: Izin resmi pengeluaran barang dari pelabuhan atau kawasan.
+        * **NPP (Nomor Pendaftaran Pabean)**: Bukti bahwa dokumen telah lolos validasi sistem dan mendapatkan Nomor Pendaftaran resmi.
+        * **SPJM (Surat Pemberitahuan Jalur Merah)**: Pemberitahuan pemeriksaan fisik oleh petugas pabean.
+        * **Reject / Penolakan**: Dokumen dikembalikan karena kesalahan data dengan keterangan rincian perbaikan.
+    * **Lampiran PDF Respon & Pratinjau Chatter**: Berkas PDF respon resmi dari CEISA otomatis dilampirkan ke **Chatter** dokumen TPB (atau record **Status & Respon**) dan dapat langsung dilihat pada panel pratinjau PDF di sisi kanan formulir.
+2. **Cetak Formulir BC (`Cetak Formulir Draft` & `Cetak Formulir Final`)**:
+    * Gunakan tombol **Cetak Formulir Draft** atau **Cetak Formulir Final** pada header dokumen TPB untuk mengunduh cetakan formulir BC resmi dari endpoint laporan CEISA dan melampirkannya secara otomatis ke Chatter dokumen.
+3. Seluruh riwayat dapat ditinjau melalui stat button **Status Respon** pada formulir dokumen.
 
 ---
 
