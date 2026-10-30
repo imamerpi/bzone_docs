@@ -42,6 +42,7 @@ sequenceDiagram
 ## 2. Pengisian Dokumen BC 2.6.2 (Pemasukan Kembali)
 
 Pengisian dokumen BC 2.6.2 memiliki validasi skema yang sangat ketat pada server CEISA 4.0. Dua kendala paling sering terjadi adalah:
+
 1. **Nomor Daftar Asal kosong atau tidak valid** (CEISA menolak referensi hanya dengan nomor aju tanpa nomor pendaftaran).
 2. **Error Seri Ijin Bahan Baku [0]**: `Gagal Kirim Data: Seri Ijin Bahan Baku [0] tidak ditemukan pada Dokumen Fasilitas/Ijin`.
 
@@ -54,13 +55,13 @@ Pada tab **Header** dokumen BC 2.6.2:
 ![Formulir Header BC 2.6.2](/assets/images/ceisa_tpb_header.png)
 
 1. Temukan bagian **Dokumen Referensi / Dokumen Asal**:
-   * **Dokumen BC 2.6.1 Asal (`ref_doc_261_id`)**: Pilih dokumen pengeluaran BC 2.6.1 yang sebelumnya telah dikirim (`state = sent`) melalui BZone.
+    * **Dokumen BC 2.6.1 Asal (`ref_doc_261_id`)**: Pilih dokumen pengeluaran BC 2.6.1 yang sebelumnya telah dikirim (`state = sent`) melalui BZone.
 2. Sistem otomatis menarik data:
-   * **Nomor Aju Asal (`nomor_aju_asal`)**: 26 digit nomor aju BC 2.6.1.
-   * **Nomor Daftar Asal (`nomor_daftar_asal`)**: Nomor pendaftaran resmi yang diterbitkan oleh server Bea Cukai.
-   * **Tanggal Daftar Asal (`tanggal_daftar_asal`)**: Tanggal pendaftaran dokumen BC 2.6.1.
-   * **Valuta & NDPBM**: Menyelaraskan mata uang dan kurs pabean dari dokumen asal jika belum ditentukan.
-   * **Dokumen Pelengkap 261**: Otomatis mendaftarkan/memperbarui baris dokumen pelengkap berkode `261` dengan nomor & tanggal daftar asal.
+    * **Nomor Aju Asal (`nomor_aju_asal`)**: 26 digit nomor aju BC 2.6.1.
+    * **Nomor Daftar Asal (`nomor_daftar_asal`)**: Nomor pendaftaran resmi yang diterbitkan oleh server Bea Cukai.
+    * **Tanggal Daftar Asal (`tanggal_daftar_asal`)**: Tanggal pendaftaran dokumen BC 2.6.1.
+    * **Valuta & NDPBM**: Menyelaraskan mata uang dan kurs pabean dari dokumen asal jika belum ditentukan.
+    * **Dokumen Pelengkap 261**: Otomatis mendaftarkan/memperbarui baris dokumen pelengkap berkode `261` dengan nomor & tanggal daftar asal.
 
 > [!IMPORTANT]
 > **Ketentuan Penyaringan Dokumen BC 2.6.1 (Aturan 1-to-1 Link / Anti-Duplikasi):**
@@ -115,12 +116,14 @@ Pada transaksi BC 2.6.2, selain mendaftarkan barang hasil olahan yang masuk, And
 
 #### Mengapa Muncul Error "Seri Ijin Bahan Baku [0]"?
 Server CEISA 4.0 memvalidasi keterkaitan antara bahan baku subkontrak dengan izin fasilitas:
+
 * Elemen JSON `seriIjin` pada bahan baku **tidak boleh bernilai 0**.
 * Nilai `seriIjin` harus cocok persis dengan nilai `seri_dokumen` dari dokumen izin subkontrak (kode `911`) yang ada di tab Dokumen Pelengkap.
 
 #### Otomatisasi di BZone:
+
 1. Saat Anda memilih atau mengonfirmasi **Surat Izin Subkontrak (911)** di tab Dokumen Pelengkap:
-   * Seluruh baris bahan baku pada tab Barang otomatis mengisi field **Seri Ijin (`seriIjin`)** mengacu ke nomor seri dokumen izin tersebut (misal: Seri `3` atau `1`).
+    * Seluruh baris bahan baku pada tab Barang otomatis mengisi field **Seri Ijin (`seriIjin`)** mengacu ke nomor seri dokumen izin tersebut (misal: Seri `3` atau `1`).
 2. Kolom **Seri Ijin** kini ditampilkan secara transparan di tabel Bahan Baku formulir dokumen, sehingga Anda dapat memastikan nilainya tidak bernilai `0` sebelum transmisi data.
 
 ---

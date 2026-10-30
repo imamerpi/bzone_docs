@@ -42,6 +42,7 @@ sequenceDiagram
 ## 2. Preparing BC 2.6.2 (Subcontract Return)
 
 BC 2.6.2 has strict schema validations on CEISA 4.0:
+
 1. **Source Registration Number missing or invalid** (CEISA rejects source references containing only submission numbers without registration numbers).
 2. **Raw Material License Series [0] Error**: `Failed to Send Data: Raw Material License Series [0] not found in Facility/License Documents`.
 3. **Guarantee Discrepancies**: Guarantee amounts on materials must match the amount pledged on the outbound BC 2.6.1.
@@ -53,13 +54,13 @@ Follow these steps in BZone:
 On the **Header** tab of BC 2.6.2:
 
 1. Locate the **Reference Document / Source Document** section:
-   * **Source BC 2.6.1 Document (`ref_doc_261_id`)**: Select the outbound BC 2.6.1 document that was previously submitted (`state = sent`) through BZone.
+    * **Source BC 2.6.1 Document (`ref_doc_261_id`)**: Select the outbound BC 2.6.1 document that was previously submitted (`state = sent`) through BZone.
 2. The system automatically retrieves:
-   * **Source Submission No. (`nomor_aju_asal`)**: 26-digit BC 2.6.1 submission number.
-   * **Source Registration No. (`nomor_daftar_asal`)**: Official registration number issued by Customs server.
-   * **Source Registration Date (`tanggal_daftar_asal`)**: Registration date of BC 2.6.1.
-   * **Currency & NDPBM**: Syncs currency code and exchange rate from source if unpopulated.
-   * **Complementary Document 261**: Automatically registers/updates complementary document code `261`.
+    * **Source Submission No. (`nomor_aju_asal`)**: 26-digit BC 2.6.1 submission number.
+    * **Source Registration No. (`nomor_daftar_asal`)**: Official registration number issued by Customs server.
+    * **Source Registration Date (`tanggal_daftar_asal`)**: Registration date of BC 2.6.1.
+    * **Currency & NDPBM**: Syncs currency code and exchange rate from source if unpopulated.
+    * **Complementary Document 261**: Automatically registers/updates complementary document code `261`.
 
 > [!IMPORTANT]
 > **One-to-One Reference Rule (Anti-Duplication):**

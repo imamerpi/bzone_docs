@@ -80,12 +80,13 @@ The system automatically organizes document priority and series numbering during
 ## Special Workflow: TPB Subcontracting (BC 2.6.1 & BC 2.6.2)
 
 This module automates the entire outbound and inbound subcontracting lifecycle:
+
 1. **BC 2.6.1 (Subcontract Outbound)**: Dispatches raw materials with Customs Duty Guaranteed status (Facility Code 8) and includes the Customs Subcontract License (Document Code `911`).
 2. **BC 2.6.2 (Subcontract Inbound Return)**:
-   * **Source Document Linking**: Select the source BC 2.6.1 document (`ref_doc_261_id`), and the system automatically links the original submission number and official registration number. Used documents are automatically hidden from the dropdown.
-   * **Automatic Item & Material Pulling**: Auto-pulls items, raw materials, and identical guarantee duties from the source BC 2.6.1 to guarantee zero discrepancy.
-   * **Raw Material License Series Synchronization**: Automatically cascades the license series number (`seri_dokumen`) from Supporting Documents into the `seriIjin` field on all raw material lines.
-   * For the comprehensive guide, see: [TPB Subcontracting Guide: BC 2.6.1 & BC 2.6.2](subkontrak_bc261_bc262.md).
+    * **Source Document Linking**: Select the source BC 2.6.1 document (`ref_doc_261_id`), and the system automatically links the original submission number and official registration number. Used documents are automatically hidden from the dropdown.
+    * **Automatic Item & Material Pulling**: Auto-pulls items, raw materials, and identical guarantee duties from the source BC 2.6.1 to guarantee zero discrepancy.
+    * **Raw Material License Series Synchronization**: Automatically cascades the license series number (`seri_dokumen`) from Supporting Documents into the `seriIjin` field on all raw material lines.
+    * For the comprehensive guide, see: [TPB Subcontracting Guide: BC 2.6.1 & BC 2.6.2](subkontrak_bc261_bc262.md).
 
 ---
 

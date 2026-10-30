@@ -40,6 +40,7 @@ graph TD
 
 ### 1. Pembentukan Nomor Aju Otomatis
 Sistem secara otomatis menggenerasi **26 Digit Nomor Pengajuan (Nomor Aju)** standar DJBC:
+
 * `[6 digit kode kantor]` + `[6 digit kode perusahaan]` + `[8 digit tanggal YYYYMMDD]` + `[6 digit nomor urut]`.
 * Contoh: `040300-000123-20260910-000001`.
 
@@ -76,16 +77,17 @@ Sistem secara otomatis mengurutkan prioritas dokumen dan nomor seri dokumen saat
 
 ---
 
----
-
 ## Alur Khusus: Subkontrak TPB (BC 2.6.1 & BC 2.6.2)
 
 Modul ini mengotomatiskan siklus pengeluaran dan pemasukan kembali pekerjaan subkontrak:
+
 1. **BC 2.6.1 (Pengeluaran Subkontrak)**: Mengeluarkan bahan baku dengan fasilitas Bea Masuk Dijaminkan (Kode 8) serta menyertakan Surat Izin Subkontrak (Kode Dokumen `911`).
 2. **BC 2.6.2 (Pemasukan Kembali)**:
-   * **Dokumen Referensi Asal**: Pengguna cukup memilih dokumen BC 2.6.1 asal (`ref_doc_261_id`), sistem otomatis menarik **Nomor Aju Asal** dan **Nomor Pendaftaran Asal** dari riwayat respon CEISA (`ceisa.status.respon`).
-   * **Sinkronisasi Seri Izin Bahan Baku**: Sistem otomatis menghubungkan nomor urut izin (`seri_dokumen`) pada tab Dokumen Pelengkap ke field `seriIjin` pada baris Bahan Baku untuk mencegah penolakan skema CEISA.
-   * Panduan selengkapnya: [Panduan Subkontrak BC 2.6.1 & BC 2.6.2](subkontrak_bc261_bc262.md).
+    * **Dokumen Referensi Asal**: Pengguna cukup memilih dokumen BC 2.6.1 asal (`ref_doc_261_id`), sistem otomatis menarik **Nomor Aju Asal** dan **Nomor Pendaftaran Asal** dari riwayat respon CEISA (`ceisa.status.respon`).
+    * **Sinkronisasi Seri Izin Bahan Baku**: Sistem otomatis menghubungkan nomor urut izin (`seri_dokumen`) pada tab Dokumen Pelengkap ke field `seriIjin` pada baris Bahan Baku untuk mencegah penolakan skema CEISA.
+    * Panduan selengkapnya: [Panduan Subkontrak BC 2.6.1 & BC 2.6.2](subkontrak_bc261_bc262.md).
+
+---
 
 ## Alur Kerja Transaksi (Lifecycle Dokumen)
 
